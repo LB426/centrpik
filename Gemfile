@@ -35,6 +35,8 @@ gem 'unicorn'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
+  gem 'selenium-webdriver'
+  gem 'capybara'
 end
 
 group :development do
@@ -46,9 +48,3 @@ group :development do
   gem 'quiet_assets'
   gem 'rspec-rails'
 end
-
-group :test do
-  gem 'selenium-webdriver'
-  gem 'capybara'
-end
-
