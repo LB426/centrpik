@@ -1,3 +1,30 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
-<p>This will be a signup page for new users.</p>
+<% provide(:title, 'Регистрация') %>
+<h1>Регистрация</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages' %>
+      
+      <%= f.label :Имя %>
+      <%= f.text_field :name %>
+
+      <%= f.label :Фамилия %>
+      <%= f.text_field :family %>
+
+      <%= f.label :Отчество %>
+      <%= f.text_field :otchestvo %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit "Создать учётную запись", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
