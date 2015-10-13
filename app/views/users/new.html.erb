@@ -7,22 +7,22 @@
       <%= render 'shared/error_messages' %>
       
       <%= f.label :Имя %>
-      <%= f.text_field :name %>
+      <%= f.text_field :name, class: 'form-control' %>
 
       <%= f.label :Фамилия %>
-      <%= f.text_field :family %>
+      <%= f.text_field :family, class: 'form-control' %>
 
       <%= f.label :Отчество %>
-      <%= f.text_field :otchestvo %>
+      <%= f.text_field :otchestvo, class: 'form-control' %>
 
       <%= f.label :email %>
-      <%= f.email_field :email %>
+      <%= f.email_field :email, class: 'form-control' %>
 
       <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, class: 'form-control' %>
 
       <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.submit "Создать учётную запись", class: "btn btn-primary" %>
     <% end %>
