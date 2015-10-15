@@ -46,8 +46,8 @@ Rails.application.configure do
     address:              'smtp.yandex.ru',
     port:                 25,
     domain:               'yandex.ru',
-    user_name:            'login',
-    password:             'password',
+    user_name:            "#{ ENV['CENTRPIC_FBEMAIL_LOGIN'] }",
+    password:             "#{ ENV['CENTRPIC_FBEMAIL_PASSWORD'] }",
     authentication:       'plain',
     enable_starttls_auto: true  
   }
