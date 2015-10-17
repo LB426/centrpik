@@ -1,13 +1,30 @@
-<div class="center jumbotron">
-	<h1>Добро пожаловать в "Учебный центр ПИК"</h1>
+<% if logged_in? %>
+  <div class="row">
+	<aside class="col-md-4">
+	  <section class="user_info">
+		<%= render 'shared/user_info' %>
+	  </section>
+	  <section class="micropost_form">
+		<%= render 'shared/micropost_form' %>
+	  </section>
+	</aside>
+	<div class="col-md-8">
+	  <h3>Micropost Feed</h3>
+	  <%= render 'shared/feed' %>
+	</div>
+  </div>
+<% else %>
+  <div class="center jumbotron">
+	  <h1>Добро пожаловать в "Учебный центр ПИК"</h1>
 
-  <h2>В настоящее время сайт находиться в разработке, поэтому многие функции не работают.</h2>
-  <h2>Если у Вас есть предложения по работе сайта или Вы заметили проблему, напишите нам по адресу 
-    <a href="mailto:centrpik@yandex.ru?Subject=проблема%20на%20сайте">centrpik@yandex.ru</a><br>
-    чтобы мы могли применить Ваши предложения как можно быстрее.
-  </h2>
+	<h2>В настоящее время сайт находиться в разработке, поэтому многие функции не работают.</h2>
+	<h2>Если у Вас есть предложения по работе сайта или Вы заметили проблему, напишите нам по адресу 
+	  <a href="mailto:centrpik@yandex.ru?Subject=проблема%20на%20сайте">centrpik@yandex.ru</a><br>
+	  чтобы мы могли применить Ваши предложения как можно быстрее.
+	</h2>
 
-  <%= link_to "Регистрация", signup_path, class: "btn btn-lg btn-primary" %>
-</div>
+	<%= link_to "Регистрация", signup_path, class: "btn btn-lg btn-primary" %>
+  </div>
 
-<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+  <%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
+<% end %>
