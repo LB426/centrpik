@@ -1,5 +1,5 @@
-Hi <%= @user.name %>,
+Здравствуйте <%= @user.name %>,
 
-Welcome to the Sample App! Click on the link below to activate your account:
+Добро пожаловать в учебный центр ПИК! Перейдите по ссылке ниже чтобы активировать вашу учётную запись:
 
 <%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

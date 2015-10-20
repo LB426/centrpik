@@ -1,9 +1,9 @@
-<h1>Sample App</h1>
+<h1>Учебный центр ПИК</h1>
 
-<p>Hi <%= @user.name %>,</p>
+<p>Здравствуйте <%= @user.name %>,</p>
 
 <p>
-Welcome to the Sample App! Click on the link below to activate your account:
+  Добро пожалувать в учебный центр ПИК! Кликните на ссылку ниже чтобы активировать вашу учётную запись:
 </p>
 
-<%= link_to "Activate", edit_account_activation_url(@user.activation_token, email: @user.email) %>
+<%= link_to "Активировать", edit_account_activation_url(@user.activation_token, email: @user.email) %>
