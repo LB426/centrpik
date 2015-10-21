@@ -1,3 +1,4 @@
+# coding: utf-8
 class AccountActivationsController < ApplicationController
 
   def edit
@@ -5,10 +6,10 @@ class AccountActivationsController < ApplicationController
     if user && !user.activated? && user.authenticated?(:activation, params[:id])
       user.activate
       log_in user
-      flash[:success] = "Account activated!"
+      flash[:success] = "Учётная запись активирована!"
       redirect_to user
     else
-      flash[:danger] = "Invalid activation link"
+      flash[:danger] = "Активация не удалась. Возможно линк активации устарел."
       redirect_to root_url
     end
   end

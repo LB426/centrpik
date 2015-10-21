@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get    'contact' => 'static_pages#contact'
   get    'signup'  => 'users#new'
   get    'login'   => 'sessions#new'
+  get    'library' => 'static_pages#library'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
   resources :users
