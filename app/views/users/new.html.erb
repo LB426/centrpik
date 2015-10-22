@@ -8,19 +8,19 @@
       <%= f.label :Имя %>
       <%= f.text_field :name, class: 'form-control' %>
 
-      <%= f.label :Фамилия %>
-      <%= f.text_field :family, class: 'form-control' %>
-
       <%= f.label :Отчество %>
       <%= f.text_field :otchestvo, class: 'form-control' %>
 
-      <%= f.label :email %>
+      <%= f.label :Фамилия %>
+      <%= f.text_field :family, class: 'form-control' %>
+
+      <%= f.label :адрес_email %>
       <%= f.email_field :email, class: 'form-control' %>
 
-      <%= f.label :password %>
+      <%= f.label :пароль %>
       <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, "подтверждение паролям" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.submit "Создать учётную запись", class: "btn btn-primary" %>
