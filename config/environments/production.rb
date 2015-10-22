@@ -79,7 +79,7 @@ Rails.application.configure do
 
   # email sending
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { host: "centrpik.kuban.ru" }
+  config.action_mailer.default_url_options = { host: "centrpik.teleknot.ru" }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              'smtp.yandex.ru',
