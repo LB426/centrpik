@@ -16,7 +16,6 @@ doc/
 .secret
 public/system
 
-config/database.yml
 public/assets
 config/unicorn.rb
 public/library
