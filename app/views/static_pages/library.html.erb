@@ -1,1 +1,18 @@
-<h3>Библиотека</h3>
+<% provide(:title, "Библиотека") %>
+<div class="row">
+  <aside class="col-md-4">
+	<section class="micropost_form">
+	</section>
+	<section>
+	  <% if current_user.admin? %>
+		<p><%= link_to "Добавить книгу", "#", :class => "btn btn-danger" %></p>
+	  <% end %>
+	</section>
+  </aside>
+  <div class="col-md-8">
+	  <h1>Библиотека</h1>
+	  <ol class="microposts">
+		<p><%= link_to "Добавить книгу", "#", :class => "btn btn-danger" %></p>
+	  </ol>
+  </div>
+</div>
