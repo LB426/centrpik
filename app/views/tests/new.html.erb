@@ -1,0 +1,13 @@
+<% provide(:title, 'Новый тест') %>
+<h1>Создание нового теста</h1>
+
+<div class="row">
+  <div class="col-md-10 col-md-offset-1">
+    <%= form_for(@test) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>      
+      <%= f.label :name, "Название" %>
+      <%= f.text_field :name, class: "form-control input-lg", :placeholder => "введите название теста" %>
+      <%= f.submit "Создать", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

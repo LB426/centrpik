@@ -5,15 +5,17 @@
 	  <h1>
 		<%= gravatar_for @user %>
 		<%= @user.name %>
+		<%= @user.otchestvo %>
+		<%= @user.family %>
 	  </h1>
 	</section>
 	<section class="micropost_form">
 	  <%= render 'shared/micropost_form' %>
 	</section>
 	<section>
-	  <%= link_to "Пройти тестирование", "#", :class => "btn btn-success" %><br><br>
+	  <p><%= link_to "Тестирование", tests_path, :class => "btn btn-success" %></p>
 	  <% if current_user.admin? %>
-		<p><%= link_to "Создать тест", "#", :class => "btn btn-danger" %></p>
+		<p><%= link_to "Создать тест", tests_new_path, :class => "btn btn-danger" %></p>
 		<p><%= link_to "Показать всех пользователей", users_path, :class => "btn btn-danger" %></p>
 	  <% end %>
 	</section>
