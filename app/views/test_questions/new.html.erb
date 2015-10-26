@@ -1,1 +1,57 @@
-<h1>Создание тестовых вопросов</h1>
+<% provide(:title, "Вопросы к тестам") %>
+<div class="row">
+  <div class="col-md-12 center"><h4>Создание вопросов для теста</h4></div>
+</div>
+<div class="row">
+  <div class="col-md-12 center"><h3><%= @test.name %></h3></div>
+</div>
+<div class="row jumbotron">
+  <div class="col-md-12">
+	<form>
+	  <div class="form-group">
+		<label>вопрос</label>
+		<input class="form-control input-lg" placeholder="введите вопрос">
+		<div class="row">
+		  <div class="col-xs-11">
+			<label>ответ</label>
+			<input class="form-control input-sm" placeholder="введите ответ">
+		  </div>
+		  <div class="col-xs-1">
+			<div class="myborder">
+			  верно
+			  <input type="radio" name="qaz" value="option1">Да
+			  <input type="radio" name="qaz" value="option2">Нет
+			</div>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-11">
+			<label>ответ</label>
+			<input class="form-control input-sm" placeholder="введите ответ">
+		  </div>
+		  <div class="col-xs-1">
+			<div class="myborder">
+			  верно
+			  <input type="radio" name="qaz" value="option1">Да
+			  <input type="radio" name="qaz" value="option2">Нет
+			</div>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-11">
+			<label>ответ</label>
+			<input class="form-control input-sm" placeholder="введите ответ">
+		  </div>
+		  <div class="col-xs-1">
+			<div class="myborder">
+			  верно
+			  <input type="radio" name="qaz" value="option1">Да
+			  <input type="radio" name="qaz" value="option2">Нет
+			</div>
+		  </div>
+		</div>
+	  </div>
+	  <button type="submit" class="btn btn-default">Сохранить</button>
+	</form>
+  </div>
+</div>

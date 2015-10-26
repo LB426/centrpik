@@ -27,14 +27,11 @@ textarea {
 
 .center {
   text-align: center;
-  h1 {
-  	margin-bottom: 10px;
-	}
 }
 
 /* typography */
-
-h1, h2, h3, h4, h5, h6 {
+/*
+ h1, h2, h3, h4, h5, h6 {
   line-height: 1;
 }
 
@@ -58,6 +55,7 @@ p {
   font-size: 1.1em;
   line-height: 1.7em;
 }
+*/
 
 /* header */
 
@@ -250,3 +248,14 @@ span.picture {
 	border: 0;
   }
 }
+
+/* Questions form  */
+
+.myborder {
+  border: 0px solid black;
+  margin-top: 0px;
+  input {
+    width: 50%;	
+  }
+}
+
