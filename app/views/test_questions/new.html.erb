@@ -5,53 +5,47 @@
 <div class="row">
   <div class="col-md-12 center"><h3><%= @test.name %></h3></div>
 </div>
-<div class="row jumbotron">
+<div class="row">
   <div class="col-md-12">
-	<form>
+
+	<%= form_tag(test_questions_create_path(@test), multipart: true) do -%>
 	  <div class="form-group">
 		<label>вопрос</label>
-		<input class="form-control input-lg" placeholder="введите вопрос">
-		<div class="row">
-		  <div class="col-xs-11">
-			<label>ответ</label>
-			<input class="form-control input-sm" placeholder="введите ответ">
-		  </div>
-		  <div class="col-xs-1">
-			<div class="myborder">
-			  верно
-			  <input type="radio" name="qaz" value="option1">Да
-			  <input type="radio" name="qaz" value="option2">Нет
+		<input class="form-control input-lg" placeholder="введите вопрос" name="question">
+	  </div>
+	  
+	  <div id="QuestionsAndAnswers">
+	  <div class="form-group bs-callout bs-callout-info">
+		  <div class="row">
+			<div class="col-xs-12">
+			  <label>ответ</label>
+			  <input class="form-control input-sm" placeholder="введите ответ" name="answer">
 			</div>
 		  </div>
+		  <div class="row">
+			<div class="col-xs-12">
+			  <div class="myborder">
+				<code>ответ верный? </code>
+				<strong>Да</strong><input type="radio" name="qaz" value="option1">
+				<strong>Нет</strong><input type="radio" name="qaz" value="option2">
+			  </div>
+			</div>
+		  </div>
+	  </div>
+	  </div>
+	  
+	  <div class="row">
+		<div class="col-xs-2">
+		  <button class="btn btn-success" id="AddAnswerToTestQuestion">
+			Добавить ответ
+		  </button>
 		</div>
-		<div class="row">
-		  <div class="col-xs-11">
-			<label>ответ</label>
-			<input class="form-control input-sm" placeholder="введите ответ">
-		  </div>
-		  <div class="col-xs-1">
-			<div class="myborder">
-			  верно
-			  <input type="radio" name="qaz" value="option1">Да
-			  <input type="radio" name="qaz" value="option2">Нет
-			</div>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-xs-11">
-			<label>ответ</label>
-			<input class="form-control input-sm" placeholder="введите ответ">
-		  </div>
-		  <div class="col-xs-1">
-			<div class="myborder">
-			  верно
-			  <input type="radio" name="qaz" value="option1">Да
-			  <input type="radio" name="qaz" value="option2">Нет
-			</div>
-		  </div>
+		
+		<div class="col-xs-2 col-md-offset-8">
+		  <%= submit_tag "Сохранить вопрос", class: "btn btn-primary" %>
 		</div>
 	  </div>
-	  <button type="submit" class="btn btn-default">Сохранить</button>
-	</form>
+	<% end -%>
+
   </div>
 </div>

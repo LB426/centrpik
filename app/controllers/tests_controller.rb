@@ -1,6 +1,7 @@
 # coding: utf-8
 class TestsController < ApplicationController
   def index
+    @tests = Test.all
   end
 
   def new
@@ -15,7 +16,10 @@ class TestsController < ApplicationController
     else
       render 'new'
     end
-    
+  end
+
+  def edit
+    @test = Test.find(params[:id])
   end
 
 private

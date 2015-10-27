@@ -17,6 +17,7 @@
 	  <% if current_user.admin? %>
 		<p><%= link_to "Создать тест", tests_new_path, :class => "btn btn-danger" %></p>
 		<p><%= link_to "Показать всех пользователей", users_path, :class => "btn btn-danger" %></p>
+		<p><%= link_to "Показать все тесты", tests_path, :class => "btn btn-danger" %></p>
 	  <% end %>
 	</section>
   </aside>

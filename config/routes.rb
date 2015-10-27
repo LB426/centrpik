@@ -12,12 +12,10 @@ Rails.application.routes.draw do
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
-  #resources :tests do
-  #  resources :questions
-  #end
-  get  'tests'     => 'tests#index'
-  get  'tests/new' => 'tests#new'
-  post 'tests'     => 'tests#create'
-  get 'tests/:id/question/new' => 'test_questions#new', :as => 'test_questions_new'
-  
+  get  'tests'         => 'tests#index'
+  get  'tests/new'     => 'tests#new'
+  post 'tests'         => 'tests#create'
+  get 'tests/:id/edit' => 'tests#edit', :as => 'test_edit'
+  get 'tests/:id/question/new' => 'test_questions#new',    :as => 'test_questions_new'
+  post 'tests/:id/questions'   => 'test_questions#create', :as => 'test_questions_create'
 end
