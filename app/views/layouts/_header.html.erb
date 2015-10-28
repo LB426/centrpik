@@ -16,7 +16,8 @@
 			  <li><%= link_to "Настройки", edit_user_path(current_user) %></li>
 			  <% if current_user.admin? %>
 				<li><%= link_to "Пользователи", users_path %></li>
-				<li><%= link_to "Тесты", tests_path %></li>
+				<li><%= link_to "Тесты - показать", tests_path %></li>
+				<li><%= link_to "Тесты - создать", tests_new_path %></li>
 			  <% end %>
 			  <li class="divider"></li>
 			  <li><%= link_to "Выход", logout_path, method: "delete" %></li>

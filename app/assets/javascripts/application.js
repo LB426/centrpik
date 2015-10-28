@@ -16,7 +16,8 @@
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function() {
+$(document).ready(function(){
+
   $( "#AddAnswerToTestQuestion" ).click(function(){
 	//alert("AddAnswerToTestQuestion");			    
 	var answer =
@@ -40,5 +41,17 @@ $(document).ready(function() {
 	$( "#QuestionsAndAnswers" ).append(answer);
 	return false;
   });
-  
+
+  $( "[name='CloseQuestionBtn']" ).click(function(){
+	var id = $(this).attr('id');
+	$("[id='QBtn_" + id + "']").removeClass( "hidden" );
+	$("[id='QBlk_" + id + "']").addClass( "hidden" );
+  });
+
+  $( "[name='OpenQuestionBtn']" ).click(function(){
+	var id = $(this).attr('id');
+	$("[id='QBtn_" + id + "']").addClass( "hidden" );
+	$("[id='QBlk_" + id + "']").removeClass( "hidden" );
+  });  
+
 });

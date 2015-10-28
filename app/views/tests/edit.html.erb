@@ -15,23 +15,177 @@
 	</div>
   </div>
 </div>
+
 <div class="highlight">
-  <ol>
-    <li>
-	  Вопрос 1
-	  <ul>
-		<li>ответ 1</li>
-		<li>ответ 2</li>
-		<li>ответ 3</li>
-	  </ul>
-	</li>
-	<li>
-	  Вопрос 2
-	  <ul>
-		<li>ответ 1</li>
-		<li>ответ 2</li>
-		<li>ответ 3</li>
-	  </ul>
-	</li>
-  </ol>
+  
+  <div class="row" id="QBtn_1">
+	<div class="col-md-12">
+	  <button class="btn btn-default btn-block" type="submit" name="OpenQuestionBtn" id="1">
+		<span class="caret"></span> Вопрос 1
+	  </button>
+	</div>
+  </div>
+
+  <div class="highlight hidden" id="QBlk_1">
+	<div class="row">
+	  <div class="col-md-12">
+		<button type="button" class="close" aria-label="Close" name="CloseQuestionBtn" id="1">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	  </div>
+	  <div class="col-md-12">
+		<%= form_tag(test_questions_create_path(@test)) do -%>
+		  <div class="form-group">
+			<label>вопрос</label>
+			<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+		  </div>
+
+		  <div id="QuestionsAndAnswers">
+			<blockquote>
+			  <div class="form-group">
+				<label>ответ 1</label>
+				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+				<div class="row">
+				  <div class="col-xs-12">
+					<div class="myborder">
+					  <code>ответ верный? </code>
+					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
+					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
+					</div>
+				  </div>
+				</div>		  
+			  </div>
+			</blockquote>
+			<blockquote>
+			  <div class="form-group">
+				<label>ответ 2</label>
+				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+				<div class="row">
+				  <div class="col-xs-12">
+					<div class="myborder">
+					  <code>ответ верный? </code>
+					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
+					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</blockquote>
+			<blockquote>
+			  <div class="form-group">
+				<label>ответ 3</label>
+				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+				<div class="row">
+				  <div class="col-xs-12">
+					<div class="myborder">
+					  <code>ответ верный? </code>
+					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
+					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</blockquote>
+		  </div>
+		  <div class="row">
+			<div class="col-xs-2">
+			  <button class="btn btn-success" id="AddAnswerToTestQuestion">
+				Добавить ответ
+			  </button>
+			</div>
+			<div class="col-md-2 col-md-offset-8">
+			  <%= submit_tag "Сохранить", class: "btn btn-primary" %>
+			</div>
+		  </div>
+		<% end -%>
+	  </div>
+	</div>
+  </div>
+  &nbsp;
+
+  <div class="row" id="QBtn_2">
+	<div class="col-md-12">
+	  <button class="btn btn-default btn-block" type="submit" name="OpenQuestionBtn" id="2">
+		<span class="caret"></span> Вопрос 2
+	  </button>
+	</div>
+  </div>
+
+  <div class="highlight hidden" id="QBlk_2">
+	<div class="row">
+	  <div class="col-md-12">
+		<button type="button" class="close" aria-label="Close" name="CloseQuestionBtn" id="2">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+	  </div>
+	  <div class="col-md-12">
+		<%= form_tag(test_questions_create_path(@test)) do -%>
+		  <div class="form-group">
+			<label>вопрос</label>
+			<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+		  </div>
+
+		  <div id="QuestionsAndAnswers">
+			<blockquote>
+			  <div class="form-group">
+				<label>ответ 1</label>
+				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+				<div class="row">
+				  <div class="col-xs-12">
+					<div class="myborder">
+					  <code>ответ верный? </code>
+					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
+					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
+					</div>
+				  </div>
+				</div>		  
+			  </div>
+			</blockquote>
+			<blockquote>
+			  <div class="form-group">
+				<label>ответ 2</label>
+				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+				<div class="row">
+				  <div class="col-xs-12">
+					<div class="myborder">
+					  <code>ответ верный? </code>
+					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
+					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</blockquote>
+			<blockquote>
+			  <div class="form-group">
+				<label>ответ 3</label>
+				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+				<div class="row">
+				  <div class="col-xs-12">
+					<div class="myborder">
+					  <code>ответ верный? </code>
+					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
+					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</blockquote>
+		  </div>
+		  <div class="row">
+			<div class="col-xs-2">
+			  <button class="btn btn-success" id="AddAnswerToTestQuestion">
+				Добавить ответ
+			  </button>
+			</div>
+			<div class="col-md-2 col-md-offset-8">
+			  <%= submit_tag "Сохранить", class: "btn btn-primary" %>
+			</div>
+		  </div>
+		<% end -%>
+	  </div>
+	</div>
+  </div>
+  &nbsp;
+  
 </div>
