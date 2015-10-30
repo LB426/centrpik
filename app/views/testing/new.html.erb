@@ -1,0 +1,12 @@
+<h1><%= @test.name %></h1>
+<p>тут первый вопрос теста и переход ко второму вопросу</p>
+
+<div class="row">
+  <div class="col-md-12">
+	<%= form_tag(testing_result_create_path(@test, @question), multipart: true) do -%>
+	  <div class="col-xs-5 col-md-offset-6">
+		<%= submit_tag "Ответить и перейти к следующему вопросу", class: "btn btn-primary btn-lg active" %>
+	  </div>
+	<% end %>
+  </div>
+</div>

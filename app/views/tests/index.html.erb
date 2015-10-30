@@ -14,11 +14,11 @@
   <tr>
 	<th scope="row"><%= test.id %></th>
 	<td><%= test.name %></td>
-	<td><a class="btn btn-primary btn-xs" href="#" role="button">Пройти тестирование</a></td>
-	<td><a class="btn btn-success btn-xs" href="#" role="button">Результат тестирования</a></td>
+	<td><a class="btn btn-primary btn-xs" href="<%= testing_new_path(test,1) %>" role="button">Пройти тестирование</a></td>
+	<td><a class="btn btn-success btn-xs" href="<%= testing_result_show_path(test) %>" role="button">Результат тестирования</a></td>
 	<% if current_user.admin? %>
 	  <td>
-		<%= link_to "Редактировать", test_edit_path(test), :class => "btn btn-danger btn-xs" %>
+		<%= link_to "Редактировать", test_edit_path(test,1), :class => "btn btn-danger btn-xs" %>
 	  </td>
 	<% end %>
   </tr>
