@@ -1,9 +1,11 @@
-<h1>Тесты</h1>
-<table class="table table-striped">
+<h4>Тесты</h1>
+
+<table class="table">
   <thead>
 	<tr>
 	  <th>#</th>
 	  <th>Название теста</th>
+	  <th>оценка</th>
 	  <th>&nbsp;</th>
 	  <th>&nbsp;</th>
 	  <th>&nbsp;</th>
@@ -14,11 +16,18 @@
   <tr>
 	<th scope="row"><%= test.id %></th>
 	<td><%= test.name %></td>
-	<td><a class="btn btn-primary btn-xs" href="<%= testing_new_path(test,1) %>" role="button">Пройти тестирование</a></td>
-	<td><a class="btn btn-success btn-xs" href="<%= testing_result_show_path(test) %>" role="button">Результат тестирования</a></td>
+	<td>4</td>
+	<td>
+	  <%= link_to "Начать тестирование", testing_new_path(test,1),
+	                                     :class=>"btn btn-primary btn-xs" %>
+	</td>
+	<td>
+	  <a class="btn btn-success btn-xs" href="<%= testing_result_show_path(test) %>" role="button">Результат тестирования</a>
+	</td>
 	<% if current_user.admin? %>
 	  <td>
-		<%= link_to "Редактировать", test_edit_path(test,1), :class => "btn btn-danger btn-xs" %>
+		<%= link_to "Редактировать", test_edit_path(test,1),
+		                             :class => "btn btn-danger btn-xs" %>
 	  </td>
 	<% end %>
   </tr>

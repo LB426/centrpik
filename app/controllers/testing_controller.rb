@@ -13,4 +13,9 @@ class TestingController < ApplicationController
   def show
     @test = Test.find(params[:id])
   end
+
+  def details
+    @test = Test.find(params[:id])
+  end
+
 end

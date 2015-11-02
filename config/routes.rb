@@ -22,5 +22,5 @@ Rails.application.routes.draw do
   get  'tests/:test_id/questions/:question_id/testing/new' => 'testing#new', :as => 'testing_new'
   post 'tests/:test_id/questions/:question_id/testing' => 'testing#create',  :as => 'testing_result_create'
   get  'tests/:id/testing/show' => 'testing#show',                           :as => 'testing_result_show'
-  
+  get  'tests/:id/testing/details' => 'testing#details', :as => 'testing_details'  
 end
