@@ -20,6 +20,24 @@ class TestsController < ApplicationController
 
   def edit
     @test = Test.find(params[:id])
+    @questions = @test.test_questions.all.order(:id => "asc")
+  end
+
+  def update
+    @test = Test.find(params[:id])
+    if @test.update_attributes(:name => params[:name])
+      flash[:success] = "Название теста изменено"
+    else
+      flash[:danger] = "ERROR! Название теста изменить не удалось"
+    end
+    redirect_to test_edit_path(@test)
+  end
+  
+  def destroy
+    @test = Test.find(params[:id])
+    @test.destroy
+    flash[:success] = "Тест удалён"
+    redirect_to tests_path
   end
 
 private

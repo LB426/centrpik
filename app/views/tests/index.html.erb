@@ -9,6 +9,7 @@
 	  <th>&nbsp;</th>
 	  <th>&nbsp;</th>
 	  <th>&nbsp;</th>
+	  <th>&nbsp;</th>
 	</tr>
   </thead>
   <tbody>
@@ -22,12 +23,19 @@
 	                                     :class=>"btn btn-primary btn-xs" %>
 	</td>
 	<td>
-	  <a class="btn btn-success btn-xs" href="<%= testing_result_show_path(test) %>" role="button">Результат тестирования</a>
+	  <%= link_to "Результат тестирования", testing_result_show_path(test),
+	                                        :class => "btn btn-success btn-xs" %>
 	</td>
 	<% if current_user.admin? %>
 	  <td>
 		<%= link_to "Редактировать", test_edit_path(test,1),
 		                             :class => "btn btn-danger btn-xs" %>
+	  </td>
+	  <td>
+		<%= link_to "Удалить", test_destroy_path(test),
+		                       :method => :delete,
+							   :data => { confirm: "Вы уверены?" },
+							   :class => "btn btn-danger btn-xs" %>
 	  </td>
 	<% end %>
   </tr>
