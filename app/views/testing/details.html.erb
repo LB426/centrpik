@@ -7,23 +7,36 @@
 	  <th>#</th>
 	  <th>вопрос</th>
 	  <th>ответ</th>
+	  <th>&nbsp;</th>
 	</tr>
   </thead>
   <tbody>
-	<tr>
-	  <th scope="row">1</th>
-	  <td class="success">Так сколько нам открытий чудных готовит просвященья дух? </td>
-	  <td>верно</td>
-	</tr>
-	<tr>
-	  <th scope="row">2</th>
-	  <td class="danger">Так сколько нам открытий чудных готовит просвященья дух? </td>
-	  <td>неверно</td>
-	</tr>
-	<tr>
-	  <th scope="row">3</th>
-	  <td class="success">Так сколько нам открытий чудных готовит просвященья дух? </td>
-	  <td>верно</td>
-	</tr>
+	<% @questions.each do |q| %>
+	  <% tr = TestingResult.where("user_id=:user_id AND test_id=:test_id AND attempt=:attempt AND test_question_id=:tqid", { user_id: current_user.id, test_id: @test.id, attempt: @attempt, tqid: q.id }) %>
+	  <% if tr[0].proper %>
+		<tr>
+		  <th scope="row">1</th>
+		  <td class="success">
+			<%= q.question %>
+			<div class="highlight hidden" id="MyAnswrs">
+			  <ul>
+				<li>aassadas</li>
+				<li>aassadas</li>
+				<li>aassadas</li>
+			  </ul>
+			</div>
+		  </td>
+		  <td>верно</td>
+		  <th><a href="#" id="MyAnswBtn">мой ответ</a></th>
+		</tr>
+	  <% else %>
+		<tr>
+		  <th scope="row">2</th>
+		  <td class="danger"><%= q.question %></td>
+		  <td>неверно</td>
+		  <th>мой ответ</th>
+		</tr>
+	  <% end %>
+	<% end %>
   </tbody>
 </table>

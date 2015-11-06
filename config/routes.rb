@@ -23,10 +23,13 @@ Rails.application.routes.draw do
   # тестовые вопросы
   get    'tests/:id/question/new' => 'test_questions#new',    :as => 'test_questions_new'
   post   'tests/:id/questions'    => 'test_questions#create', :as => 'test_questions_create'
-  patch  'tests/:test_id/question/:question_id/' => 'test_questions#update', :as => 'test_questions_update'
+  delete 'tests/:test_id/question/:question_id' => 'test_questions#destroy', :as => 'test_question_destroy'
+  patch  'tests/:test_id/question/:question_id' => 'test_questions#update',  :as => 'test_questions_update'
+  delete 'tests/:test_id/answer/:answer_id' => 'test_questions#answer_destroy',:as => 'test_questions_answer_destroy'
   # тестирование
-  get  'tests/:test_id/questions/:question_id/testing/new' => 'testing#new', :as => 'testing_new'
-  post 'tests/:test_id/questions/:question_id/testing' => 'testing#create',  :as => 'testing_result_create'
-  get  'tests/:id/testing/show' => 'testing#show',                           :as => 'testing_result_show'
-  get  'tests/:id/testing/details' => 'testing#details', :as => 'testing_details'  
+  get  'tests/:test_id/questions/:question_id/testing/new'      => 'testing#new',      :as => 'testing_new'
+  post 'tests/:test_id/questions/:question_id/testing'          => 'testing#create',   :as => 'testing_result_create'
+  get  'tests/:test_id/questions/:question_id/testing/continue' => 'testing#continue', :as => 'testing_continue'
+  get  'tests/:id/attempt/:attempt/show'                        => 'testing#show',     :as => 'testing_result_show'
+  get  'tests/:id/testing/details'                              => 'testing#details',  :as => 'testing_details'  
 end

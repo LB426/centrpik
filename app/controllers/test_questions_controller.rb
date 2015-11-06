@@ -34,12 +34,34 @@ class TestQuestionsController < ApplicationController
       text = val["text"]
       right = false
       right = true if val["right"] == "YES"
-      answer = Answer.find(id)
-      answer[:ans_text] = text
-      answer[:proper] = right
-      answer.save
+      if id >= 0
+        answer = Answer.find(id)
+        answer[:ans_text] = text
+        answer[:proper] = right
+        answer.save
+      else
+        answer = @question.answers.new( ans_text: text,
+                                          proper: right )
+        answer.save
+      end
     end 
     redirect_to test_edit_path(@test)
   end
 
+  def destroy
+    @test = Test.find(params[:test_id])
+    @question = @test.test_questions.find(params[:question_id])
+    @question.destroy
+    flash[:success] = "Вопрос удалён"
+    redirect_to test_edit_path(@test)
+  end
+  
+  def answer_destroy
+    @test = Test.find(params[:test_id])
+    @answer = Answer.find(params[:answer_id])
+    @answer.destroy
+    flash[:success] = "Вопрос удалён"
+    redirect_to test_edit_path(@test)
+  end
+  
 end

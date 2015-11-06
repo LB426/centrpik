@@ -17,18 +17,19 @@
   <tr>
 	<th scope="row"><%= test.id %></th>
 	<td><%= test.name %></td>
-	<td>4</td>
+	<td>тест не пройден</td>
+	<% first_question = test.test_questions.all.order(:id => "asc")[0] %>
 	<td>
-	  <%= link_to "Начать тестирование", testing_new_path(test,1),
+	  <%= link_to "Начать тестирование", testing_new_path(test,first_question),
 	                                     :class=>"btn btn-primary btn-xs" %>
 	</td>
 	<td>
-	  <%= link_to "Результат тестирования", testing_result_show_path(test),
+	  <%= link_to "Результат тестирования", testing_result_show_path(test,7),
 	                                        :class => "btn btn-success btn-xs" %>
 	</td>
 	<% if current_user.admin? %>
 	  <td>
-		<%= link_to "Редактировать", test_edit_path(test,1),
+		<%= link_to "Редактировать", test_edit_path(test.id),
 		                             :class => "btn btn-danger btn-xs" %>
 	  </td>
 	  <td>

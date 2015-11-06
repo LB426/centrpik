@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103063025) do
+ActiveRecord::Schema.define(version: 20151106112956) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -40,6 +40,46 @@ ActiveRecord::Schema.define(version: 20151103063025) do
     t.string   "question",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "testing_intermediate_results", force: :cascade do |t|
+    t.integer  "user_id",          limit: 4
+    t.integer  "test_id",          limit: 4
+    t.integer  "test_question_id", limit: 4
+    t.integer  "answer_id",        limit: 4
+    t.boolean  "proper"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "testing_intermediate_results", ["answer_id"], name: "index_testing_intermediate_results_on_answer_id", using: :btree
+  add_index "testing_intermediate_results", ["test_id"], name: "index_testing_intermediate_results_on_test_id", using: :btree
+  add_index "testing_intermediate_results", ["test_question_id"], name: "index_testing_intermediate_results_on_test_question_id", using: :btree
+  add_index "testing_intermediate_results", ["user_id"], name: "index_testing_intermediate_results_on_user_id", using: :btree
+
+  create_table "testing_results", force: :cascade do |t|
+    t.integer  "user_id",                 limit: 4
+    t.integer  "test_id",                 limit: 4
+    t.integer  "test_question_id",        limit: 4
+    t.integer  "answer_id",               limit: 4
+    t.boolean  "proper"
+    t.integer  "attempt",                 limit: 4
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "testing_stat_attempt_id", limit: 4
+  end
+
+  create_table "testing_stat_attempts", force: :cascade do |t|
+    t.integer  "user_id",           limit: 4
+    t.integer  "test_id",           limit: 4
+    t.integer  "attempt",           limit: 4
+    t.datetime "tmbegin"
+    t.datetime "tmend"
+    t.integer  "duration",          limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "numquestion",       limit: 4
+    t.integer  "numcorrectanswers", limit: 4
   end
 
   create_table "tests", force: :cascade do |t|
