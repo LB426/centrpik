@@ -5,36 +5,70 @@
   <thead>
 	<tr>
 	  <th>#</th>
-	  <th>вопрос</th>
+	  <td>
+		<strong>вопрос.</strong>
+		<small>
+		  значение цвета:
+		  <mark class="bg-success">правильно</mark>
+		  <mark class="bg-danger">НЕ правильно</mark>
+		  <mark class="bg-info">выбраный вами ответ</mark>
+		</small>
+	  </td>
 	  <th>ответ</th>
 	  <th>&nbsp;</th>
 	</tr>
   </thead>
   <tbody>
+	<% counter = 0 %>
 	<% @questions.each do |q| %>
-	  <% tr = TestingResult.where("user_id=:user_id AND test_id=:test_id AND attempt=:attempt AND test_question_id=:tqid", { user_id: current_user.id, test_id: @test.id, attempt: @attempt, tqid: q.id }) %>
+	  <% tr = TestingResult.where(
+		"user_id=:user_id AND
+         test_id=:test_id AND
+         attempt=:attempt AND
+         test_question_id=:tqid",
+		{ user_id: current_user.id,
+		  test_id: @test.id,
+		  attempt: @attempt,
+		  tqid: q.id } ) %>
 	  <% if tr[0].proper %>
 		<tr>
-		  <th scope="row">1</th>
+		  <th scope="row"><%= counter += 1 %></th>
 		  <td class="success">
 			<%= q.question %>
-			<div class="highlight hidden" id="MyAnswrs">
+			<div class="highlight hidden" id="MyAnswrsBlk_<%= q.id %>">
 			  <ul>
-				<li>aassadas</li>
-				<li>aassadas</li>
-				<li>aassadas</li>
+				<% q.answers.all.order(id: "ASC").each do |a| %>
+				  <% if a.id == tr[0].answer_id %>
+					<li class="bg-info"><%= a.ans_text %></li>
+				  <% else %>
+					<li><%= a.ans_text %></li>
+				  <% end %>
+				<% end %>
 			  </ul>
 			</div>
 		  </td>
 		  <td>верно</td>
-		  <th><a href="#" id="MyAnswBtn">мой ответ</a></th>
+		  <th><a href="#" name="MyAnswBtn" id="<%= q.id %>">мой ответ</a></th>
 		</tr>
 	  <% else %>
 		<tr>
-		  <th scope="row">2</th>
-		  <td class="danger"><%= q.question %></td>
+		  <th scope="row"><%= counter += 1 %></th>
+		  <td class="danger">
+			<%= q.question %>
+			<div class="highlight hidden" id="MyAnswrsBlk_<%= q.id %>">
+			  <ul>
+				<% q.answers.all.order(id: "ASC").each do |a| %>
+				  <% if a.id == tr[0].answer_id %>
+					<li class="bg-info"><%= a.ans_text %></li>
+				  <% else %>
+					<li><%= a.ans_text %></li>
+				  <% end %>				
+				<% end %>
+			  </ul>
+			</div>
+		  </td>
 		  <td>неверно</td>
-		  <th>мой ответ</th>
+		  <th><a href="#" name="MyAnswBtn" id="<%= q.id %>">мой ответ</a></th>
 		</tr>
 	  <% end %>
 	<% end %>

@@ -149,7 +149,7 @@ class TestingController < ApplicationController
 
   def show
     @test = Test.find(params[:id])
-    @stat = TestingStatAttempt.where(attempt: params[:attempt])
+    @stat = current_user.testing_stat_attempts.where(attempt: params[:attempt])
     @numquest = @stat[0].numquestion
     @numcorrectansw = @stat[0].numcorrectanswers
     @assessment = @numcorrectansw - @numquest
@@ -158,11 +158,7 @@ class TestingController < ApplicationController
   def details
     @test = Test.find(params[:id])
     @attempt = @test.testing_stat_attempts.last.attempt
-    logger.debug "attempt: #{@attempt}"
     @questions = @test.test_questions.all.order(id: "ASC")
-    @questions.each do |q|
-      
-    end
   end
 
 end

@@ -18,4 +18,7 @@ class StaticPagesController < ApplicationController
 
   def library
   end
+
+  def dlearning
+  end
 end

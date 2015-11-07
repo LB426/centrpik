@@ -99,11 +99,11 @@ $(document).ready(function(){
 	return false;
   });
 
-  $( "#MyAnswBtn" ).click(function(){
-	$("#MyAnswrs").removeClass( "hidden" );
+  $( "[name='MyAnswBtn']" ).click(function(){
+	var id = $(this).attr('id');
+	//alert(1);
+	$("[id='MyAnswrsBlk_"+id+"']").toggleClass( "hidden" );
 	return false;
   });
-  
-  
+    
 });
-

@@ -1,5 +1,9 @@
 # coding: utf-8
 class TestsController < ApplicationController
+  before_action :admin_user, :only => [ :new, :create,
+                                        :edit, :update,
+                                        :destroy ]
+  
   def index
     @tests = Test.all
   end

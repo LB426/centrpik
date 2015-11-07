@@ -5,27 +5,33 @@
 	<tr>
 	  <th>#</th>
 	  <th>Название теста</th>
-	  <th>оценка</th>
+	  <th>попыток</th>
 	  <th>&nbsp;</th>
 	  <th>&nbsp;</th>
-	  <th>&nbsp;</th>
-	  <th>&nbsp;</th>
+	  <% if current_user.admin? %>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	  <% end %>
 	</tr>
   </thead>
   <tbody>
 <% @tests.each do |test| %>
+  <% last_attempt = current_user.testing_stat_attempts.where(test_id: test).count %>
   <tr>
 	<th scope="row"><%= test.id %></th>
 	<td><%= test.name %></td>
-	<td>тест не пройден</td>
+	<td>
+	  <%= last_attempt %>
+	</td>
 	<% first_question = test.test_questions.all.order(:id => "asc")[0] %>
 	<td>
-	  <%= link_to "Начать тестирование", testing_new_path(test,first_question),
+	  <%= link_to "пройти тест", testing_new_path(test,first_question),
 	                                     :class=>"btn btn-primary btn-xs" %>
 	</td>
 	<td>
-	  <%= link_to "Результат тестирования", testing_result_show_path(test,7),
-	                                        :class => "btn btn-success btn-xs" %>
+	  <%= link_to "смотреть результат",
+	              testing_result_show_path(test, last_attempt),
+	              :class => "btn btn-success btn-xs" %>
 	</td>
 	<% if current_user.admin? %>
 	  <td>
