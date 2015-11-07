@@ -1,191 +1,175 @@
 <% provide(:title, "Редактор теста") %>
 <div class="center"><h3>Редактирование теста</h3></div>
 <div class="highlight">
-  <div class="row">
-	<div class="col-md-12">
-	  <%= form_tag(test_questions_create_path(@test)) do -%>
+  <%= form_tag(test_update_path(@test), method: "patch") do -%>
+	<div class="row">
+	  <div class="col-md-12">
 		<div class="form-group">
 		  <label>название теста</label>
 		  <%= text_field_tag('name', @test.name, :class => "form-control") %>
 		</div>
-		<div class="col-md-2 col-md-offset-10">
-		  <%= submit_tag "Сохранить", class: "btn btn-primary" %>
+	  </div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+		  <%= submit_tag "Сохранить название теста", class: "btn btn-primary" %>
+		</div>
+		<div class="col-md-2 col-md-offset-7">
+		  <button class="btn btn-primary" id="AddNewQuestionToTestBtn">
+			Добавить вопрос
+		  </button>
+		</div>
+	</div>
+  <% end -%>
+</div>
+
+<!-- форма создания нового вопроса -->
+<div class="highlight hidden" id="NewQuestion">
+  <div class="row">
+	<div class="col-md-12">
+
+	  <%= form_tag(test_questions_create_path(@test), multipart: true) do -%>
+		<div class="form-group">
+		  <label>вопрос</label>
+		  <input class="form-control input-lg" placeholder="введите вопрос"
+			                                   name="question">
+		</div>
+		
+		<div id="NewQuestionAndHimAnswersBlock">
+		  <div class="form-group bs-callout bs-callout-info">
+			<div class="row">
+			  <div class="col-xs-12">
+				<label>ответ</label>
+				<input class="form-control input-sm" placeholder="введите ответ"
+					                                 name="answers[0][text]">
+			  </div>
+			</div>
+			<div class="row">
+			  <div class="col-xs-10">
+				<div class="myborder">
+				  <code>ответ верный? </code>
+				  <strong>Да </strong>
+				  <input type="radio" name="answers[0][right]" value="YES">
+				  <strong>Нет</strong>
+				  <input type="radio" name="answers[0][right]" value="NO"
+					                                         checked="checked">
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		
+		<div class="row">
+		  <div class="col-xs-2">
+			<%= submit_tag "Сохранить вопрос", class: "btn btn-primary" %>
+		  </div>
+		  <div class="col-xs-2 col-md-offset-8">
+			<button class="btn btn-success"
+				    id="0"
+				    name="AddAnswerToNewTestQuestionBtn">
+			  Добавить ответ
+			</button>
+		  </div>
 		</div>
 	  <% end -%>
+
 	</div>
   </div>
 </div>
 
-<div class="highlight">
-  
-  <div class="row" id="QBtn_1">
+<!-- форма редактирования вопросов -->
+<% @questions.each do |question| %>
+  <div class="row" id="QBtn_<%= question.id %>">
 	<div class="col-md-12">
-	  <button class="btn btn-default btn-block" type="submit" name="OpenQuestionBtn" id="1">
-		<span class="caret"></span> Вопрос 1
+	  <button class="btn btn-default btn-block" type="submit"
+		                                        name="OpenQuestionBtn"
+		                                        id="<%= question.id %>">
+		<span class="caret"></span> <%= question.question %>
 	  </button>
 	</div>
   </div>
 
-  <div class="highlight hidden" id="QBlk_1">
+  <div class="highlight hidden" id="QBlk_<%= question.id %>">
 	<div class="row">
 	  <div class="col-md-12">
-		<button type="button" class="close" aria-label="Close" name="CloseQuestionBtn" id="1">
+		<button type="button" class="close" aria-label="Close"
+			                                name="CloseQuestionBtn"
+			                                id="<%= question.id %>">
 		  <span aria-hidden="true">&times;</span>
 		</button>
 	  </div>
 	  <div class="col-md-12">
-		<%= form_tag(test_questions_create_path(@test)) do -%>
+		<%= form_tag(test_questions_update_path(@test,question), method: "patch") do -%>
 		  <div class="form-group">
 			<label>вопрос</label>
-			<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+			<%= text_field_tag('question', question.question,
+							   :class => "form-control input-sm") %>
 		  </div>
-
-		  <div id="QuestionsAndAnswers">
-			<blockquote>
-			  <div class="form-group">
-				<label>ответ 1</label>
-				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
+		  <div id="QBlock_<%= question.id %>">
+			<% counter = 0 %>
+			<% answers = question.answers.all.order(:id => "asc") %>
+			<% answers.each do |answer| %>
+			  <% counter = counter + 1 %>
+			  <div class="form-group bs-callout bs-callout-info">
+				<label>ответ <%= counter %></label>
+				<input class="form-control input-sm"
+					value="<%= answer.ans_text %>"
+					name="answers[<%= answer.id %>][text]">
 				<div class="row">
-				  <div class="col-xs-12">
+				  <div class="col-xs-10">
 					<div class="myborder">
 					  <code>ответ верный? </code>
-					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
-					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
+					  
+					  <% if answer.proper %>
+						<strong>Да</strong>
+						<input type="radio" name="answers[<%= answer.id %>][right]"
+							value="YES" checked>
+						<strong>Нет</strong>
+						<input type="radio" name="answers[<%= answer.id %>][right]"
+							value="NO">
+					  <% else %>
+						<strong>Да</strong>
+						<input type="radio" name="answers[<%= answer.id %>][right]"
+							value="YES">
+						<strong>Нет</strong>
+						<input type="radio" name="answers[<%= answer.id %>][right]"
+							value="NO" checked>
+					  <% end %>
+
 					</div>
+				  </div>
+				  <div class="col-xs-2">
+					<%= link_to "Удалить ответ",
+					    test_questions_answer_destroy_path(@test, answer),
+                        :method => :delete, :data => { confirm: "Вы уверены?" },
+					                        :class => "btn btn-danger btn-xs" %>
 				  </div>
 				</div>		  
 			  </div>
-			</blockquote>
-			<blockquote>
-			  <div class="form-group">
-				<label>ответ 2</label>
-				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
-				<div class="row">
-				  <div class="col-xs-12">
-					<div class="myborder">
-					  <code>ответ верный? </code>
-					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
-					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
-					</div>
-				  </div>
-				</div>
-			  </div>
-			</blockquote>
-			<blockquote>
-			  <div class="form-group">
-				<label>ответ 3</label>
-				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
-				<div class="row">
-				  <div class="col-xs-12">
-					<div class="myborder">
-					  <code>ответ верный? </code>
-					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
-					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
-					</div>
-				  </div>
-				</div>
-			  </div>
-			</blockquote>
+			<% end %>
 		  </div>
 		  <div class="row">
-			<div class="col-xs-2">
-			  <button class="btn btn-success" id="AddAnswerToTestQuestion">
+			<div class="col-md-2">
+			  <%= submit_tag "Сохранить вопрос", class: "btn btn-primary" %>
+			</div>
+			<div class="col-md-2">			
+			  <button class="btn btn-success"
+				         id="QAddBtn_<%= question.id %>"
+			           name="AddAnswerToTestQuestion">
 				Добавить ответ
 			  </button>
 			</div>
-			<div class="col-md-2 col-md-offset-8">
-			  <%= submit_tag "Сохранить", class: "btn btn-primary" %>
+			<div class="col-md-2 col-md-offset-6">
+			  <%= link_to "Удалить вопрос", test_question_destroy_path(@test, question),
+			                         :method => :delete,
+									 :data => { confirm: "Вы уверены?" },
+			                         :class => "btn btn-danger" %>
 			</div>
 		  </div>
+
 		<% end -%>
 	  </div>
 	</div>
   </div>
   &nbsp;
-
-  <div class="row" id="QBtn_2">
-	<div class="col-md-12">
-	  <button class="btn btn-default btn-block" type="submit" name="OpenQuestionBtn" id="2">
-		<span class="caret"></span> Вопрос 2
-	  </button>
-	</div>
-  </div>
-
-  <div class="highlight hidden" id="QBlk_2">
-	<div class="row">
-	  <div class="col-md-12">
-		<button type="button" class="close" aria-label="Close" name="CloseQuestionBtn" id="2">
-		  <span aria-hidden="true">&times;</span>
-		</button>
-	  </div>
-	  <div class="col-md-12">
-		<%= form_tag(test_questions_create_path(@test)) do -%>
-		  <div class="form-group">
-			<label>вопрос</label>
-			<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
-		  </div>
-
-		  <div id="QuestionsAndAnswers">
-			<blockquote>
-			  <div class="form-group">
-				<label>ответ 1</label>
-				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
-				<div class="row">
-				  <div class="col-xs-12">
-					<div class="myborder">
-					  <code>ответ верный? </code>
-					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
-					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
-					</div>
-				  </div>
-				</div>		  
-			  </div>
-			</blockquote>
-			<blockquote>
-			  <div class="form-group">
-				<label>ответ 2</label>
-				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
-				<div class="row">
-				  <div class="col-xs-12">
-					<div class="myborder">
-					  <code>ответ верный? </code>
-					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
-					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
-					</div>
-				  </div>
-				</div>
-			  </div>
-			</blockquote>
-			<blockquote>
-			  <div class="form-group">
-				<label>ответ 3</label>
-				<%= text_field_tag('name', @test.name, :class => "form-control input-sm") %>
-				<div class="row">
-				  <div class="col-xs-12">
-					<div class="myborder">
-					  <code>ответ верный? </code>
-					  <strong>Да</strong><input type="radio" name="qaz" value="option1">
-					  <strong>Нет</strong><input type="radio" name="qaz" value="option2">
-					</div>
-				  </div>
-				</div>
-			  </div>
-			</blockquote>
-		  </div>
-		  <div class="row">
-			<div class="col-xs-2">
-			  <button class="btn btn-success" id="AddAnswerToTestQuestion">
-				Добавить ответ
-			  </button>
-			</div>
-			<div class="col-md-2 col-md-offset-8">
-			  <%= submit_tag "Сохранить", class: "btn btn-primary" %>
-			</div>
-		  </div>
-		<% end -%>
-	  </div>
-	</div>
-  </div>
-  &nbsp;
-  
-</div>
+<% end %>

@@ -13,13 +13,21 @@
 	  <%= render 'shared/micropost_form' %>
 	</section>
 	<section>
-	  <p><%= link_to "Тестирование", tests_path, :class => "btn btn-success" %></p>
-	  <% if current_user.admin? %>
-		<p><%= link_to "Создать тест", tests_new_path, :class => "btn btn-danger" %></p>
-		<p><%= link_to "Показать всех пользователей", users_path, :class => "btn btn-danger" %></p>
-		<p><%= link_to "Показать все тесты", tests_path, :class => "btn btn-danger" %></p>
-	  <% end %>
+
+	  <%= link_to "Тестирование", tests_path, :class => "btn btn-default btn-block" %>
 	</section>
+
+	<% if current_user.admin? %>
+	  <section>
+		<p class="bg-danger text-center">меню администратора</p>
+		<%= link_to "Создать тест", tests_new_path,
+		:class => "btn btn-primary btn-block" %>
+		<%= link_to "Пользователи", users_path,
+		:class => "btn btn-primary btn-block" %>
+		<%= link_to "Тесты", tests_path, :class => "btn btn-primary btn-block" %>
+	  </section>
+	<% end %>
+
   </aside>
   <div class="col-md-8">
 	<% if @user.microposts.any? %>

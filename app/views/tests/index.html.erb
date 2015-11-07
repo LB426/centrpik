@@ -1,24 +1,48 @@
-<h1>Тесты</h1>
-<table class="table table-striped">
+<h4>Тесты</h1>
+
+<table class="table">
   <thead>
 	<tr>
 	  <th>#</th>
 	  <th>Название теста</th>
+	  <th>попыток</th>
 	  <th>&nbsp;</th>
 	  <th>&nbsp;</th>
-	  <th>&nbsp;</th>
+	  <% if current_user.admin? %>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	  <% end %>
 	</tr>
   </thead>
   <tbody>
 <% @tests.each do |test| %>
+  <% last_attempt = current_user.testing_stat_attempts.where(test_id: test).count %>
   <tr>
 	<th scope="row"><%= test.id %></th>
 	<td><%= test.name %></td>
-	<td><a class="btn btn-primary btn-xs" href="<%= testing_new_path(test,1) %>" role="button">Пройти тестирование</a></td>
-	<td><a class="btn btn-success btn-xs" href="<%= testing_result_show_path(test) %>" role="button">Результат тестирования</a></td>
+	<td>
+	  <%= last_attempt %>
+	</td>
+	<% first_question = test.test_questions.all.order(:id => "asc")[0] %>
+	<td>
+	  <%= link_to "пройти тест", testing_new_path(test,first_question),
+	                                     :class=>"btn btn-primary btn-xs" %>
+	</td>
+	<td>
+	  <%= link_to "смотреть результат",
+	              testing_result_show_path(test, last_attempt),
+	              :class => "btn btn-success btn-xs" %>
+	</td>
 	<% if current_user.admin? %>
 	  <td>
-		<%= link_to "Редактировать", test_edit_path(test,1), :class => "btn btn-danger btn-xs" %>
+		<%= link_to "Редактировать", test_edit_path(test.id),
+		                             :class => "btn btn-danger btn-xs" %>
+	  </td>
+	  <td>
+		<%= link_to "Удалить", test_destroy_path(test),
+		                       :method => :delete,
+							   :data => { confirm: "Вы уверены?" },
+							   :class => "btn btn-danger btn-xs" %>
 	  </td>
 	<% end %>
   </tr>

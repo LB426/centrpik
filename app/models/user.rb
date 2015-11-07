@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
   has_many :tests, dependent: :destroy
+  has_many :testing_intermediate_results
+  has_many :testing_results
+  has_many :testing_stat_attempts
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email

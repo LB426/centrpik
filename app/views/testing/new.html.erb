@@ -4,44 +4,29 @@
 <div class="bs-callout bs-callout-info">
   <div class="pull-right"><p class="text-muted">ВОПРОС<p></div>
   <p class="h2">
-	Так сколько нам открытий чудных готовит просвященья дух?
+	<%= @question.question %>
   </p>
-
 </div>
 
 
 <%= form_tag(testing_result_create_path(@test, @question)) do -%>
   <div class="bg-danger bs-callout bs-callout-danger">
 	<div class="pull-right"><p class="text-muted">ВАРИАНТЫ ОТВЕТОВ</p></div>
+	<% @answers.each do |answer| %>
 	<p class="lead">
 	  <label class="checkbox-inline">
-		<input type="checkbox" id="inlineCheckbox1" value="option1">&nbsp;
+		<input type="checkbox" name="answers[<%= answer.id %>]"
+			                  value="SELECTED" >&nbsp;
 	  </label>
-	  Просвященья дух готовит нам сто тыщ питьсот открытий в этом году.
+	  <%= answer.ans_text %>
 	</p>
-	<p class="lead">
-	  <label class="checkbox-inline">
-		<input type="checkbox" id="inlineCheckbox1" value="option1">&nbsp;
-	  </label>
-	  Просвященья дух готовит нам сто тыщ питьсот открытий в следующем году.
-	</p>
-	<p class="lead">
-	  <label class="checkbox-inline">
-		<input type="checkbox" id="inlineCheckbox1" value="option1">&nbsp;
-	  </label>
-	  Просвященья дух готовит нам сто тыщ питьсот открытий в году.
-	</p>
+	<% end %>
 
-  <footer>
-	поставьте галочку рядом с <cite title="Source Title">правильным</cite> 
-	ответом и нажмите кнопку дальше.
-  </footer>
-
+	<footer>
+	  поставьте галочку рядом с <cite title="Source Title">правильным</cite> 
+	  ответом и нажмите кнопку дальше.
+	</footer>
 
   </div>
-
-
   <%= submit_tag "Дальше", class: "btn btn-success btn-lg active" %>
-
-
 <% end -%>

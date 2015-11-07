@@ -14,29 +14,31 @@
 		<input class="form-control input-lg" placeholder="введите вопрос" name="question">
 	  </div>
 	  
-	  <div id="QuestionsAndAnswers">
-	  <div class="form-group bs-callout bs-callout-info">
+	  <div id="NewQuestionAndHimAnswersBlock">
+		<div class="form-group bs-callout bs-callout-info">
 		  <div class="row">
 			<div class="col-xs-12">
 			  <label>ответ</label>
-			  <input class="form-control input-sm" placeholder="введите ответ" name="answer">
+			  <input class="form-control input-sm" placeholder="введите ответ" name="answers[0][text]">
 			</div>
 		  </div>
 		  <div class="row">
 			<div class="col-xs-12">
 			  <div class="myborder">
 				<code>ответ верный? </code>
-				<strong>Да</strong><input type="radio" name="qaz" value="option1">
-				<strong>Нет</strong><input type="radio" name="qaz" value="option2">
+				<strong>Да </strong>
+				<input type="radio" name="answers[0][right]" value="YES">
+				<strong>Нет</strong>
+				<input type="radio" name="answers[0][right]" value="NO" checked="checked">
 			  </div>
 			</div>
 		  </div>
-	  </div>
+		</div>
 	  </div>
 	  
 	  <div class="row">
 		<div class="col-xs-2">
-		  <button class="btn btn-success" id="AddAnswerToTestQuestion">
+		  <button class="btn btn-success" name="AddAnswerToNewTestQuestionBtn">
 			Добавить ответ
 		  </button>
 		</div>
@@ -49,3 +51,7 @@
 
   </div>
 </div>
+
+<script>
+var acounter = 1 ;
+</script>
