@@ -6,6 +6,7 @@ class TestsController < ApplicationController
   
   def index
     @tests = Test.all
+   
   end
 
   def new
@@ -48,6 +49,11 @@ private
 
   def test_params
     params.require(:test).permit(:name)
+  end
+
+  # Confirms an admin user.
+  def admin_user
+    redirect_to(root_url) unless current_user.admin?
   end
   
 end
