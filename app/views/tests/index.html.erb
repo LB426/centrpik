@@ -29,9 +29,15 @@
 	                                     :class=>"btn btn-primary btn-xs" %>
 	</td>
 	<td>
-	  <%= link_to "смотреть результат",
-	              testing_result_show_path(test, last_attempt),
-	              :class => "btn btn-success btn-xs" %>
+	  <% if last_attempt != 0 %>
+		<%= link_to "смотреть результат",
+	                testing_result_show_path(test, last_attempt),
+	                :class => "btn btn-success btn-xs" %>
+	  <% else %>
+		<button type="button" class="btn btn-success btn-xs"
+			               disabled="disabled">смотреть результат
+		</button>
+	  <% end %>
 	</td>
 	<% if current_user.admin? %>
 	  <td>
