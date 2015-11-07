@@ -6,7 +6,10 @@ class TestsController < ApplicationController
   
   def index
     @tests = Test.all
-   
+    if @tests.nil?
+      flash[:danger] = "ERROR! Не создано ни одного теста"
+      redirect_to root_path
+    end
   end
 
   def new
