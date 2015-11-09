@@ -1,15 +1,15 @@
 # coding: utf-8
 Rails.application.routes.draw do
   root                'static_pages#home'
-  get    'help'    => 'static_pages#help'
-  get    'about'   => 'static_pages#about'
+  get       'help' => 'static_pages#help'
+  get      'about' => 'static_pages#about'
   get    'contact' => 'static_pages#contact'
   get  'dlearning' => 'static_pages#dlearning'
-  get    'signup'  => 'users#new'
-  get    'login'   => 'sessions#new'
+  get     'signup' => 'users#new'
+  get      'login' => 'sessions#new'
   get    'library' => 'static_pages#library'
-  post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
+  post     'login' => 'sessions#create'
+  delete  'logout' => 'sessions#destroy'
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
@@ -33,4 +33,6 @@ Rails.application.routes.draw do
   get  'tests/:test_id/questions/:question_id/testing/continue' => 'testing#continue', :as => 'testing_continue'
   get  'tests/:id/attempt/:attempt/show'                        => 'testing#show',     :as => 'testing_result_show'
   get  'tests/:id/testing/details'                              => 'testing#details',  :as => 'testing_details'  
+  # обучающее видео
+  get 'tvideo' => 'training_video#index', :as => 'training_video'
 end
