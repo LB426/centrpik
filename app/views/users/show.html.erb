@@ -21,10 +21,13 @@
 	  <section>
 		<p class="bg-danger text-center">меню администратора</p>
 		<%= link_to "Создать тест", tests_new_path,
-		:class => "btn btn-primary btn-block" %>
+                                    :class => "btn btn-danger btn-block" %>
+		<%= link_to "Тесты", tests_path, 
+                                    :class => "btn btn-danger btn-block" %>
 		<%= link_to "Пользователи", users_path,
-		:class => "btn btn-primary btn-block" %>
-		<%= link_to "Тесты", tests_path, :class => "btn btn-primary btn-block" %>
+                                    :class => "btn btn-danger btn-block" %>
+		<%= link_to "Учебное видео", training_video_path, 
+                                    :class => "btn btn-danger btn-block" %>
 	  </section>
 	<% end %>
 

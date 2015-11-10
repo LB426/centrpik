@@ -33,4 +33,6 @@ Rails.application.routes.draw do
   get  'tests/:test_id/questions/:question_id/testing/continue' => 'testing#continue', :as => 'testing_continue'
   get  'tests/:id/attempt/:attempt/show'                        => 'testing#show',     :as => 'testing_result_show'
   get  'tests/:id/testing/details'                              => 'testing#details',  :as => 'testing_details'  
+  # обучающее видео
+  get 'tvideo' => 'training_video#index', :as => 'training_video'
 end
