@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get  'dlearning' => 'static_pages#dlearning'
   get    'library' => 'static_pages#library'
   get     'signup' => 'users#new'
+  get 'new_custom_user' => 'users#new_custom_user', :as => 'new_custom_user'
   get      'login' => 'sessions#new'
   post     'login' => 'sessions#create'
   delete  'logout' => 'sessions#destroy'
@@ -31,10 +32,15 @@ Rails.application.routes.draw do
   get  'tests/:test_id/questions/:question_id/testing/new'      => 'testing#new',      :as => 'testing_new'
   post 'tests/:test_id/questions/:question_id/testing'          => 'testing#create',   :as => 'testing_result_create'
   get  'tests/:test_id/questions/:question_id/testing/continue' => 'testing#continue', :as => 'testing_continue'
+  get  'tests/:test_id/attempt/:attempt/comment' => 'testing#attempt_comment', :as => 'testing_attempt_comment'
   get  'tests/:id/attempt/:attempt/show'                        => 'testing#show',     :as => 'testing_result_show'
   get  'tests/:id/testing/details'                              => 'testing#details',  :as => 'testing_details'  
   # обучающее видео
   get 'tvideo' => 'training_video#index', :as => 'training_video'
   # учебные курсы
   resources :courses
+  # статистика
+  get 'statistics/index'
+  get 'statistics/user/:user_id/course/:course_id' => 'statistics#course', :as => 'stat_course'
+  get 'statistics/user/:id/courses' => 'statistics#courses', :as => 'stat_courses'  
 end

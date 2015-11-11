@@ -2,7 +2,7 @@
 <h1><p class="text-center">Регистрация</p></h1>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user) do |f| %>
+    <%= form_for(@user, :url => "") do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>      
       <%= f.label :Имя %>
       <%= f.text_field :name, class: 'form-control' %>
@@ -14,16 +14,13 @@
       <%= f.text_field :family, class: 'form-control' %>
 
       <%= f.label :адрес_email %>
-      <%= f.email_field :email, class: 'form-control' %>
+      <%= f.email_field :email, value: "fiction-user@example.com", class: 'form-control' %>
 
       <%= f.label :пароль %>
       <%= f.password_field :password, class: 'form-control' %>
 
       <%= f.label :password_confirmation, "подтверждение пароля" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
-
-	  <%= f.label :persdata, "я даю своё согласие на хранение и обработку персональных данных" %>
-	  <%= f.check_box :pdexeconfirm, {checked: true} %>
 
       <%= f.submit "Создать учётную запись", class: "btn btn-primary" %>
     <% end %>

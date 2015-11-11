@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151110104151) do
+ActiveRecord::Schema.define(version: 20151111183126) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -83,10 +83,12 @@ ActiveRecord::Schema.define(version: 20151110104151) do
     t.datetime "tmbegin"
     t.datetime "tmend"
     t.integer  "duration",          limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.integer  "numquestion",       limit: 4
     t.integer  "numcorrectanswers", limit: 4
+    t.string   "assessment",        limit: 255
+    t.string   "comment",           limit: 255
   end
 
   create_table "tests", force: :cascade do |t|
@@ -111,6 +113,7 @@ ActiveRecord::Schema.define(version: 20151110104151) do
     t.datetime "activated_at"
     t.string   "reset_digest",      limit: 255
     t.datetime "reset_sent_at"
+    t.boolean  "pdexeconfirm"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

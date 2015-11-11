@@ -1,7 +1,7 @@
 # coding: utf-8
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-  before_action :correct_user,   only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update, :show]
   before_action :admin_user,     only: [:index, :edit, :destroy]
   
   def index
@@ -15,6 +15,10 @@ class UsersController < ApplicationController
   end
 
   def new
+    @user = User.new
+  end
+
+  def new_custom_user
     @user = User.new
   end
 
@@ -49,7 +53,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  private
+private
 
   def user_params
     params.require(:user).permit(:name, :family, :otchestvo, :email, :password,
@@ -70,7 +74,10 @@ class UsersController < ApplicationController
   # Confirms the correct user.
   def correct_user
     @user = User.find(params[:id])
-    redirect_to(root_url) unless current_user?(@user) || current_user.admin
+    unless current_user?(@user) || current_user.admin
+      flash[:danger] = "Некорректный пользователь"
+      redirect_to(root_url) 
+    end
   end
 
   # Confirms an admin user.

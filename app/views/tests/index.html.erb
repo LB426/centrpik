@@ -32,8 +32,12 @@
 		</td>
 		<% first_question = test.test_questions.all.order(:id => "asc")[0] %>
 		<td>
-		  <%= link_to "пройти тест", testing_new_path(test, first_question),
-	      :class=>"btn btn-primary btn-xs" %>
+		  <% unless first_question.nil? %>
+			<%= link_to "пройти тест", testing_new_path(test, first_question),
+	                                   :class=>"btn btn-primary btn-xs" %>
+		  <% else %>
+			тест не имеет вопросов
+		  <% end %>
 		</td>
 		<td>
 		  <% if last_attempt != 0 %>

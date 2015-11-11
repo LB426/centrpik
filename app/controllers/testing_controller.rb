@@ -10,12 +10,15 @@ class TestingController < ApplicationController
                                        test_id: @test.id
                                      }
                                    ).destroy_all
+    @last_question = @test.test_questions.all.last
   end
 
   def continue
     @test = Test.find(params[:test_id])
     @question = @test.test_questions.find(params[:question_id])
     @answers = @question.answers.all.order(:id => "ASC")
+    @last_question = @test.test_questions.all.last
+    
     render :new
   end
   
@@ -64,6 +67,11 @@ class TestingController < ApplicationController
       redirect_to testing_continue_path(@test, next_question[0].id)
     else
       # если это последний вопрос теста
+      comment = params[:comment]
+      if comment.empty? || comment.nil?
+        comment = current_user.family + ' ' + current_user.name + ' ' + current_user.otchestvo  
+      end
+      logger.debug "comment: #{comment}"
       answers = params[:answers]
       unless answers.nil?
         answers.each do |key,val|
@@ -86,7 +94,8 @@ class TestingController < ApplicationController
                                           :attempt  => nil,
                                           :tmbegin  => nil,
                                           :tmend    => nil,
-                                          :duration => nil )
+                                          :duration => nil,
+                                          :comment  => comment )
         
         # вычисляем количество предидущих попыток
         previos_attempts = 0
@@ -137,6 +146,14 @@ class TestingController < ApplicationController
                                      ).count
         logger.debug "testres: #{testres}"
         stat.numcorrectanswers = testres
+        numquest = stat.numquestion
+        numcorrectansw = stat.numcorrectanswers
+        procent = ( numcorrectansw * 100 ) / numquest
+        if procent < 70
+          stat.assessment = "незачёт"
+        else
+          stat.assessment = "зачёт"
+        end    
         stat.save
                 
         redirect_to testing_result_show_path(@test,stat.attempt)
@@ -149,10 +166,7 @@ class TestingController < ApplicationController
 
   def show
     @test = Test.find(params[:id])
-    @stat = current_user.testing_stat_attempts.where(attempt: params[:attempt])
-    @numquest = @stat[0].numquestion
-    @numcorrectansw = @stat[0].numcorrectanswers
-    @assessment = @numcorrectansw - @numquest
+    @stats = current_user.testing_stat_attempts.all
   end
 
   def details

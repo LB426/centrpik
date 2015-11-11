@@ -1,0 +1,27 @@
+<h1>Результат прохождения курсов</h1>
+<p>
+пользователь: <%= @user.family %> 
+<%= @user.name %> 
+<%= @user.otchestvo %>
+</p>
+<p>
+результат прохождения тестов:<br>
+  <table class="table">
+	<thead>
+	  <tr>
+		<th>Название теста</th>
+		<th>комментарий</th>
+		<th>оценка</th>
+	  </tr>
+	</thead>
+	<tbody>
+	<% @attempts.each do |attempt| %>
+	  <tr>
+		<td><%= Test.find(attempt.test_id).name %></td>
+		<td><%= attempt.comment %></td>
+		<td><%= attempt.assessment %></td>
+	  </tr>
+	<% end %>
+	</tbody>
+  </table>
+</p>
