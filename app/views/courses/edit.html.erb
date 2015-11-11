@@ -1,0 +1,42 @@
+<% provide(:title, "Редактор курса") %>
+<div class="highlight">
+  <fieldset>	
+	<legend>Редактор курса</legend>
+	<%= form_for(@course) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+	  <div class="form-group">
+		<label>название курса</label>
+		<%= f.text_field :name, class: "form-control" %>
+	  </div>
+	  <div class="form-group">
+		<label>описание курса</label>
+		<%= f.text_area :description, class: "form-control", rows: 4 %>
+	  </div>
+	  <hr>
+	  <table class="table table-condensed">
+		<caption>
+		  Чтобы создать связь теста с курсом кликните на кнопку "Связать"
+		</caption>
+		<thead>
+		  <tr>
+			<th>#</th>
+			<th>Название теста</th>
+			<th>&nbsp;</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <% Test.all.each do |test| %>
+			<tr>
+			  <th scope="row"><%= test.id %></th>
+			  <td><%= test.name %></td>
+			  <td><%= link_to "связать", "", :class => "btn btn-primary btn-xs" %></td>
+			</tr>
+		  <% end %>
+		</tbody>
+	  </table>
+	  <div class="form-group">
+		<%= f.submit "Сохранить изменения", class: "btn btn-primary" %>
+	  </div>
+	<% end %>
+  </fieldset>
+</div>

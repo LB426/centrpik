@@ -23,6 +23,7 @@ section {
 
 textarea {
   resize: vertical;
+  font-size: 24px;
 }
 
 .center {
@@ -259,4 +260,10 @@ span.picture {
   background-color: #F7F7F9;
   border: 1px solid #E1E1E8;
   border-radius: 4px; 
+}
+
+.buttontext {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
 }

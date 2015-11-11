@@ -81,14 +81,13 @@
 <% @questions.each do |question| %>
   <div class="row" id="QBtn_<%= question.id %>">
 	<div class="col-md-12">
-	  <button class="btn btn-default btn-block" type="submit"
+	  <button class="btn btn-default btn-block buttontext" type="submit"
 		                                        name="OpenQuestionBtn"
 		                                        id="<%= question.id %>">
 		<span class="caret"></span> <%= question.question %>
 	  </button>
 	</div>
   </div>
-
   <div class="highlight hidden" id="QBlk_<%= question.id %>">
 	<div class="row">
 	  <div class="col-md-12">
@@ -102,8 +101,8 @@
 		<%= form_tag(test_questions_update_path(@test,question), method: "patch") do -%>
 		  <div class="form-group">
 			<label>вопрос</label>
-			<%= text_field_tag('question', question.question,
-							   :class => "form-control input-sm") %>
+			<%= text_area_tag('question', question.question,
+							   :class => "form-control input-lg") %>
 		  </div>
 		  <div id="QBlock_<%= question.id %>">
 			<% counter = 0 %>
@@ -112,7 +111,7 @@
 			  <% counter = counter + 1 %>
 			  <div class="form-group bs-callout bs-callout-info">
 				<label>ответ <%= counter %></label>
-				<input class="form-control input-sm"
+				<input class="form-control input-lg"
 					value="<%= answer.ans_text %>"
 					name="answers[<%= answer.id %>][text]">
 				<div class="row">
