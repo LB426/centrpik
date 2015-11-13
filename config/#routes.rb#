@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :users
   get 'new_custom_user' => 'users#new_custom_user', :as => 'new_custom_user'
   get          'signup' => 'users#new'
+  
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   # posts

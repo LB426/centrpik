@@ -1,6 +1,6 @@
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-3">
+  <aside class="col-md-4">
 	<section class="user_info">
 	  <h1>
 		<%= gravatar_for @user %>
@@ -9,9 +9,12 @@
 		<%= @user.family %>
 	  </h1>
 	</section>
+	<section class="micropost_form">
+	  <%= render 'shared/micropost_form' %>
+	</section>
 	<section>
 
-	  <%= link_to "Тесты", tests_path, :class => "btn btn-default btn-block" %>
+	  <%= link_to "Тестирование", tests_path, :class => "btn btn-default btn-block" %>
 	</section>
 
 	<% if current_user.admin? %>
@@ -29,7 +32,13 @@
 	<% end %>
 
   </aside>
-  <div class="col-md-9">
-	&nbsp;
+  <div class="col-md-8">
+	<% if @user.microposts.any? %>
+	  <h3>Мои сообщения (<%= @user.microposts.count %>)</h3>
+	  <ol class="microposts">
+		<%= render @microposts %>
+	  </ol>
+	  <%= will_paginate @microposts %>
+	<% end %>
   </div>
 </div>

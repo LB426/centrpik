@@ -1,26 +1,36 @@
 <% provide(:title, 'Регистрация') %>
-<h1><p class="text-center">Регистрация</p></h1>
+<h3><p class="text-center">Новая учётная запись</p></h3>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user, :url => "") do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>      
+
+	  <%= f.label :Фамилия %>
+      <%= f.text_field :family, class: 'form-control' %>
+
       <%= f.label :Имя %>
       <%= f.text_field :name, class: 'form-control' %>
 
       <%= f.label :Отчество %>
       <%= f.text_field :otchestvo, class: 'form-control' %>
-
-      <%= f.label :Фамилия %>
-      <%= f.text_field :family, class: 'form-control' %>
-
-      <%= f.label :адрес_email %>
-      <%= f.email_field :email, value: "fiction-user@example.com", class: 'form-control' %>
-
+	  <div class="highlight">
+      <%= f.label :Тип_пользователя %>
+      <%= f.select :type, options_for_select([['корпоративный', 'Corporate'],
+											  ['индивидуальный','Individual']]),
+							   {}, { class: 'form-control',
+								     title: "Bla bla bla",
+							         "aria-describedby" => "helpBlock" } %>
+	  <span id="helpBlock" class="help-block">
+		A block of help text that breaks onto a new line and may extend beyond one line.
+	  </span>
+	  </div>
+	  <div class="highlight hidden">
+		<%= f.label :адрес_email %>
+		<%= f.email_field :email, value: "fiction-user@example.com",
+                                  class: 'form-control' %>
+	  </div>
       <%= f.label :пароль %>
       <%= f.password_field :password, class: 'form-control' %>
-
-      <%= f.label :password_confirmation, "подтверждение пароля" %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.submit "Создать учётную запись", class: "btn btn-primary" %>
     <% end %>

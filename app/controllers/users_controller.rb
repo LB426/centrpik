@@ -18,12 +18,8 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def new_custom_user
-    @user = User.new
-  end
-
   def create
-    @user = User.new(user_params)
+    @user = Individual.new(user_params)
     if @user.save
       @user.send_activation_email
       flash[:info] = "Пожалуйста, проверьте ваш email чтобы активировать учётную запись."
@@ -52,12 +48,17 @@ class UsersController < ApplicationController
     flash[:success] = "Пользователь удалён"
     redirect_to users_url
   end
-  
+
+  def new_custom_user
+    @user = User.new
+  end
+
+
 private
 
   def user_params
     params.require(:user).permit(:name, :family, :otchestvo, :email, :password,
-                                 :password_confirmation)
+                                 :password_confirmation, :pdexeconfirm)
   end
   
   # Before filters

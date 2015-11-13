@@ -1,0 +1,17 @@
+<% provide(:title, 'компании') %>
+<h2><p class="text-center">Создание новой компании</p></h2>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+	<%= form_for(@company) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+	  <%= f.label :Название_компании %>
+	  <%= f.text_field :name, class: 'form-control',
+		                placeholder: "введите название компании" %>
+
+	  <%= f.label :Адрес_компании %>
+	  <%= f.text_field :addr, class: 'form-control' %>
+							
+	  <%= f.submit "Создать компанию", class: "btn btn-primary" %>
+	<% end %>
+  </div>
+</div>

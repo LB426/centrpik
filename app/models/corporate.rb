@@ -1,0 +1,2 @@
+class Corporate < User
+end
