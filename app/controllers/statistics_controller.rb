@@ -7,6 +7,8 @@ class StatisticsController < ApplicationController
   end
 
   def course
+    @attempt = TestingStatAttempt.find(params[:attempt_id])
+    @test = Test.find(@attempt.test_id)
   end
 
   # все курсы одного юзера

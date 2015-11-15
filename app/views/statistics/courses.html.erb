@@ -18,7 +18,11 @@
 	<% @attempts.each do |attempt| %>
 	  <tr>
 		<td><%= Test.find(attempt.test_id).name %></td>
-		<td><%= attempt.comment %></td>
+		<td><%= link_to attempt.comment,
+			            stat_course_path( attempt.user_id,
+						                  attempt.test_id,
+						                  attempt.id) %>
+		</td>
 		<td><%= attempt.assessment %></td>
 	  </tr>
 	<% end %>

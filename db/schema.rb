@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113064207) do
+ActiveRecord::Schema.define(version: 20151115110005) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -62,8 +62,9 @@ ActiveRecord::Schema.define(version: 20151113064207) do
     t.integer  "test_question_id", limit: 4
     t.integer  "answer_id",        limit: 4
     t.boolean  "proper"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "comment",          limit: 255
   end
 
   add_index "testing_intermediate_results", ["answer_id"], name: "index_testing_intermediate_results_on_answer_id", using: :btree

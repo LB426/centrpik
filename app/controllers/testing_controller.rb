@@ -10,6 +10,7 @@ class TestingController < ApplicationController
                                        test_id: @test.id
                                      }
                                    ).destroy_all
+    @first_question = @test.test_questions.all.first
     @last_question = @test.test_questions.all.last
   end
 
@@ -18,7 +19,7 @@ class TestingController < ApplicationController
     @question = @test.test_questions.find(params[:question_id])
     @answers = @question.answers.all.order(:id => "ASC")
     @last_question = @test.test_questions.all.last
-    
+    @first_question = @test.test_questions.all.first    
     render :new
   end
   
@@ -27,6 +28,23 @@ class TestingController < ApplicationController
     @question = @test.test_questions.find(params[:question_id])
     # найти последний вопрос теста
     @last_question = @test.test_questions.all.last
+    @first_question = @test.test_questions.all.first
+    # если это первый вопрос теста
+    comment = "no comment"
+    if @first_question.id == @question.id
+      comment = params[:comment]
+      if comment.empty? || comment.nil?
+        comment = current_user.family + ' ' +
+                  current_user.name + ' ' + current_user.otchestvo  
+      end
+      logger.debug "comment: #{comment}"
+    else
+      fqha = TestingIntermediateResult.where(
+        "user_id=:user_id AND test_id=:test_id",
+        { user_id: current_user.id, test_id: @test.id } ).first
+      logger.debug "fqha: #{fqha}"
+      comment = fqha.comment
+    end
     if @last_question.id != @question.id
       # если это не последний вопрос теста
       answers = params[:answers]
@@ -37,6 +55,7 @@ class TestingController < ApplicationController
           result.test_id = @test.id
           result.test_question_id = @question.id
           result.answer_id = key.to_i
+          result.comment = comment
           logger.debug "key: #{key.class} #{key}"
           answer = Answer.find(key)
           if answer.proper
@@ -67,11 +86,6 @@ class TestingController < ApplicationController
       redirect_to testing_continue_path(@test, next_question[0].id)
     else
       # если это последний вопрос теста
-      comment = params[:comment]
-      if comment.empty? || comment.nil?
-        comment = current_user.family + ' ' + current_user.name + ' ' + current_user.otchestvo  
-      end
-      logger.debug "comment: #{comment}"
       answers = params[:answers]
       unless answers.nil?
         answers.each do |key,val|

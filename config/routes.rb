@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resources :users
   get 'new_custom_user' => 'users#new_custom_user', :as => 'new_custom_user'
   get          'signup' => 'users#new'
+  
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
   # posts
@@ -44,8 +45,8 @@ Rails.application.routes.draw do
   resources :courses
   # статистика
   get 'statistics/index'
-  get 'statistics/user/:user_id/course/:course_id' => 'statistics#course', :as => 'stat_course'
   get 'statistics/user/:id/courses' => 'statistics#courses', :as => 'stat_courses'
+  get 'statistics/user/:user_id/course/:course_id/attempt/:attempt_id' => 'statistics#course', :as => 'stat_course'
   # компания
   resources :companies
 end

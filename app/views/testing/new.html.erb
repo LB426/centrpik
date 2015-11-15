@@ -29,9 +29,11 @@
 
   </div>
 
-  <% if @last_question.id == @question.id %>
+  <% if @first_question.id == @question.id %>
 	<div class="bg-danger bs-callout bs-callout-danger">
-	  <div class="pull-left"><p class="text-muted">Это последний вопрос, введите свои Фамилию Имя Отчество если вы проходите тест используя учётную запись другого человека</p></div>
+	  <div class="pull-left">
+		<p class="text-muted">Введите Фамилию Имя Отчество тестируемого</p>
+	  </div>
 	  <%= text_field_tag :comment, nil, class: 'form-control' %>
 	</div>
   <% end %>
