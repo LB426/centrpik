@@ -1,0 +1,46 @@
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h3>
+	  <p class="text-center">
+		Сотрудники компании &laquo;<%= @company.name %>&raquo;
+	  </p>
+	</h3>
+	<table class="table table-hover">
+	  <thead>
+		<tr>
+		  <th>#</th>
+		  <th>Ф.И.О</th>
+		  <th>регистрация</th>
+		  <th>&nbsp;</th>
+		  <th>&nbsp;</th>
+		  <th>&nbsp;</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<% @users.each do |user| %>
+		  <tr>
+			<th scope="row"><%= user.id %></th>
+			<td><%= user.family %> <%= user.name %> <%= user.otchestvo %></td>
+			<td><%= user.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+			<td>
+			  <%= link_to "изменить", edit_user_path(user),
+	          class: "btn btn-primary btn-sm" %>
+			</td>
+			<td>
+			  <%= link_to "удалить", user_path(user), method: :delete,
+		      data: { confirm: "Вы уверены?" },
+		      class: "btn btn-danger btn-sm" %>
+			</td>
+			<td>
+			  <%= link_to "курсы", stat_courses_path(user),
+		      class: "btn btn-primary btn-sm" %>
+			</td>
+		  </tr>
+		<% end %>
+	  </tbody>
+	</table>
+  </div>
+</div>

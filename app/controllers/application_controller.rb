@@ -14,4 +14,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Confirms the correct user.
+  def correct_user
+    @user = User.find(params[:id])
+    unless current_user?(@user) || current_user.admin
+      flash[:danger] = "Некорректный пользователь"
+      redirect_to(root_url) 
+    end
+  end
+
+  # Confirms an admin user.
+  def admin_user
+    unless ( logged_in? && current_user.admin? )
+      store_location
+      flash[:danger] = "У Вас недостаточно прав для выполнения этой операции."
+      redirect_to root_url
+    end  
+    # redirect_to(root_url) unless current_user.admin?
+  end
+  
 end

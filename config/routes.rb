@@ -11,9 +11,12 @@ Rails.application.routes.draw do
   post     'login' => 'sessions#create'
   delete  'logout' => 'sessions#destroy'
   # users
+  get     'signup' => 'users#new'
   resources :users
-  get 'new_custom_user' => 'users#new_custom_user', :as => 'new_custom_user'
-  get          'signup' => 'users#new'
+  resources :corporates,  controller: 'users', type: 'Corporate'
+  resources :individuals, controller: 'users', type: 'Individual'
+  get '/employe/new' => 'users#employe_new', :as => 'employe_new'
+  get '/employes'    => 'users#employes', :as => 'employes'
   
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

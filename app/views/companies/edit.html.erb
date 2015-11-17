@@ -1,15 +1,9 @@
-<% provide(:title, 'компании') %>
 <div class="row">
   <aside class="col-md-3">
 	<%= render "users/left_menu" %>
   </aside>
   <div class="col-md-9">
-	<h2><p class="text-center">Для корпоративных клиентов</p></h2>
-	<p class="lead">
-	  Если Вы являетесь представителем организации желающей провести обучение и тестирование
-	  своих сотрудников в нашем учебном центре пожалуйста заполните информацию о своей
-	  компании.
-	</p>
+	<h2><p class="text-center">Информация о компании</p></h2>
 	<%= form_for(@company) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 	  <%= f.label :Название_компании %>

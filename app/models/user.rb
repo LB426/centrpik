@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_many :testing_intermediate_results
   has_many :testing_results
   has_many :testing_stat_attempts
+  has_many :companies
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_create :create_activation_digest

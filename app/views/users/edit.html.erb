@@ -21,12 +21,14 @@
 	  <%= f.label :email %>
 	  <%= f.email_field :email, class: 'form-control' %>
 
-	  <%= f.label :пароль %>
-	  <%= f.password_field :password, class: 'form-control' %>
+	  <% unless current_user.admin && @user.id != current_user.id %>
+		<%= f.label :пароль %>
+		<%= f.password_field :password, class: 'form-control' %>
 
-	  <%= f.label :password, "Подтверждение пароля" %>
-	  <%= f.password_field :password_confirmation, class: 'form-control' %>
-
+		<%= f.label :password, "Подтверждение пароля" %>
+		<%= f.password_field :password_confirmation, class: 'form-control' %>
+	  <% end %>
+	  
 	  <%= f.submit "Сохранить изменения", class: "btn btn-primary" %>
 	<% end %>
 

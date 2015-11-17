@@ -1,0 +1,31 @@
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h2><p class="text-center">Создание учётной записи для сотрудника компании</p></h2>
+	<p>
+	  Пользователь зарегистрированный этим способом не имеет возможности выполнять вход на сайт самостоятельно.
+	  Если он желает выполнять вход самостоятельно пусть зарегистрируется по этой ссылке
+	  <strong><%= link_to "регистрация", signup_path %></strong>.
+	</p>
+    <%= form_for(@user) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>      
+
+	  <%= f.label :Фамилия %>
+      <%= f.text_field :family, class: 'form-control' %>
+	  
+      <%= f.label :Имя %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :Отчество %>
+      <%= f.text_field :otchestvo, class: 'form-control' %>
+
+	  <%= f.label :persdata, "с правилами хранения и обработки
+                              персональных данных ознакомлен" %>
+	  <%= f.check_box :pdexeconfirm, {checked: true} %>
+
+      <%= f.submit "Создать учётную запись", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
