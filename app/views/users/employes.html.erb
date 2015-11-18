@@ -26,13 +26,14 @@
 			<td><%= user.family %> <%= user.name %> <%= user.otchestvo %></td>
 			<td><%= user.created_at.strftime("%Y-%m-%d %H:%M") %></td>
 			<td>
-			  <%= link_to "изменить", edit_user_path(user),
+			  <%= link_to "изменить", employe_edit_path(user),
 	          class: "btn btn-primary btn-sm" %>
 			</td>
 			<td>
-			  <%= link_to "удалить", user_path(user), method: :delete,
-		      data: { confirm: "Вы уверены?" },
-		      class: "btn btn-danger btn-sm" %>
+			  <%= link_to "удалить", employe_destroy_path(user),
+			                         method: :delete,
+		                             data: { confirm: "Вы уверены?" },
+		                             class: "btn btn-danger btn-sm" %>
 			</td>
 			<td>
 			  <%= link_to "курсы", stat_courses_path(user),

@@ -1,41 +1,45 @@
 <% provide(:title, "Курсы") %>
 <div class="row">
-  <div class="col-md-1"><h4>Курсы</h4></div>
-  <% if current_user.admin? %>
-  <div class="col-md-2 col-md-offset-9">
-	<%= link_to "Создать курс", new_course_path, :class => "btn btn-primary btn-block" %>
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		Panel heading
+	  </div>
+	  <table class="table">
+		<thead>
+		  <tr>
+			<th>#</th>
+			<th>Название курса</th>
+			<% if current_user.admin? %>
+			  <th>&nbsp;</th>
+			  <th>&nbsp;</th>
+			<% end %>
+		  </tr>
+		</thead>
+		<tbody>
+		  <% @courses.each do |course| %>
+			<tr>
+			  <th scope="row"><%= course.id %></th>
+			  <td><%= course.name %></td>
+			  <% if current_user.admin? %>
+				<td>
+				  <%= link_to "Редактировать", edit_course_path(course),
+		          :class => "btn btn-danger btn-xs" %>
+				</td>
+				<td>
+				  <%= link_to "Удалить", course_path(course),
+		          :method => :delete,
+			      :data => { confirm: "Вы уверены?" },
+			      :class => "btn btn-danger btn-xs" %>
+				</td>
+			  <% end %>
+			</tr>
+		  <% end %>
+		</tbody>
+	  </table>
+	</div>
   </div>
-  <% end %>
 </div>
-<table class="table">
-  <thead>
-	<tr>
-	  <th>#</th>
-	  <th>Название курса</th>
-	  <% if current_user.admin? %>
-		<th>&nbsp;</th>
-		<th>&nbsp;</th>
-	  <% end %>
-	</tr>
-  </thead>
-  <tbody>
-	<% @courses.each do |course| %>
-	  <tr>
-		<th scope="row"><%= course.id %></th>
-		<td><%= course.name %></td>
-		<% if current_user.admin? %>
-		  <td>
-			<%= link_to "Редактировать", edit_course_path(course),
-		                                 :class => "btn btn-danger btn-xs" %>
-		  </td>
-		  <td>
-			<%= link_to "Удалить", course_path(course),
-		                           :method => :delete,
-			                       :data => { confirm: "Вы уверены?" },
-			                       :class => "btn btn-danger btn-xs" %>
-		  </td>
-		<% end %>
-	  </tr>
-	<% end %>
-  </tbody>
-</table>

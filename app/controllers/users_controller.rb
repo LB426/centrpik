@@ -1,7 +1,7 @@
 # coding: utf-8
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
-#  before_action :correct_user,   only: [:edit, :update, :show]
+  before_action :correct_user,   only: [:edit, :update, :show]
   before_action :admin_user,     only: [:index, :destroy]
   
   def index
@@ -75,14 +75,55 @@ class UsersController < ApplicationController
     flash[:success] = "Пользователь удалён"
     redirect_to users_url
   end
-
+  
+  def employes
+    @company = current_user.companies.first
+    @users = User.where(:company_id => @company)
+  end
+  
   def employe_new
     @user = Corporate.new
   end
 
-  def employes
+  def employe_edit
     @company = current_user.companies.first
-    @users = User.where(:company_id => @company)
+    @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
+  end
+
+  def employe_create
+    @company = current_user.companies.first
+    up2 = user_params
+    up2["password"] = random_string
+    @user = Corporate.new(up2)
+    @user.activated = 1
+    @user.activated_at = Time.now
+    @user.company_id = current_user.companies.first.id
+    if @user.update_attributes(user_params)
+      flash[:success] = "Учётная запись корпоративного пользователя создана"
+      redirect_to employes_path
+    else
+      flash[:info] = "Ошибка. Учётная запись корпоративного пользователя НЕ создана"
+      render 'new_employe_user'
+    end
+  end
+
+  def employe_update
+    @company = current_user.companies.first
+    @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
+    if @user.update_attributes(user_params)
+      flash[:success] = "Учётная запись корпоративного пользователя изменена"
+      redirect_to employes_path
+    else
+      render 'employe_edit'
+    end
+  end
+
+  def employe_destroy
+    @company = current_user.companies.first
+    @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
+    @user.destroy
+    flash[:success] = "Корпоративный пользователь удалён"
+    redirect_to employes_path
   end
 
 private

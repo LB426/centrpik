@@ -1,6 +1,8 @@
 # coding: utf-8
 class CoursesController < ApplicationController
-
+  before_action :logged_in_user
+  before_action :admin_user, only: [:new, :edit, :create, :update, :destroy]
+  
   def index
     @courses = Course.all.order( :id => "ASC" )
   end

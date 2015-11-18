@@ -15,8 +15,13 @@ Rails.application.routes.draw do
   resources :users
   resources :corporates,  controller: 'users', type: 'Corporate'
   resources :individuals, controller: 'users', type: 'Individual'
-  get '/employe/new' => 'users#employe_new', :as => 'employe_new'
-  get '/employes'    => 'users#employes', :as => 'employes'
+  # работа корпоративного юзера с сотрудниками
+  get    '/employes'    => 'users#employes',       :as => 'employes'
+  get    '/employe/new' => 'users#employe_new',    :as => 'employe_new'
+  post   '/employe'     => 'users#employe_create', :as => 'employe_create'
+  get    '/employe/:id' => 'users#employe_edit',   :as => 'employe_edit'
+  patch  '/employe/:id' => 'users#employe_update', :as => 'employe_update'
+  delete '/employe/:id' => 'users#employe_destroy',:as => 'employe_destroy'
   
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]

@@ -9,7 +9,7 @@
 	  Если он желает выполнять вход самостоятельно пусть зарегистрируется по этой ссылке
 	  <strong><%= link_to "регистрация", signup_path %></strong>.
 	</p>
-    <%= form_for(@user) do |f| %>
+	<%= form_for(@user, as: :user, url: employe_create_path) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>      
 
 	  <%= f.label :Фамилия %>

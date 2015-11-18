@@ -7,7 +7,7 @@
   </h1>
 </section>
 <section>
-  <%= link_to "Тесты", tests_path, :class => "btn btn-default btn-block" %>
+  <%= link_to "Курсы", courses_path, :class => "btn btn-default btn-block" %>
   <% if current_user.type != "Corporate" %>
 	<%= link_to "Для корпоративных клиентов",
                 new_company_path,

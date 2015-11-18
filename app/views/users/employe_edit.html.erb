@@ -1,0 +1,26 @@
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h2><p class="text-center">Редактор учётной записи сотрудника компании</p></h2>
+    <%= form_for(@user, as: :user, url: employe_update_path(@user), method: :patch) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>      
+
+	  <%= f.label :Фамилия %>
+      <%= f.text_field :family, class: 'form-control' %>
+	  
+      <%= f.label :Имя %>
+      <%= f.text_field :name, class: 'form-control' %>
+
+      <%= f.label :Отчество %>
+      <%= f.text_field :otchestvo, class: 'form-control' %>
+
+	  <%= f.label :persdata, "с правилами хранения и обработки
+                              персональных данных ознакомлен" %>
+	  <%= f.check_box :pdexeconfirm, {checked: true} %>
+
+      <%= f.submit "Изменить учётную запись", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
