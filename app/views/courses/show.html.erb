@@ -1,0 +1,179 @@
+<% provide(:title, "Курс") %>
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		<div class="media">
+		  <div class="media-left media-top">
+			<img class="media-object" src="/75216065.png" width="64" height="64">
+		  </div>
+		  <div class="media-body">
+			<p class="text-center">
+			  <strong><h3 class="media-heading"><%= @course.name %></h3></strong>
+			</p>
+		  </div>
+		</div>
+	  </div>
+	  <div class="panel-body">
+		<%= @course.description.html_safe %>
+	  </div>
+	  <div class="panel-footer">информация о курсе</div>
+	</div>
+  </div>
+</div>
+<div class="row">
+  <aside class="col-md-3">
+	
+  </aside>
+  <div class="col-md-9">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		<div class="media">
+		  <div class="media-left media-top">
+			<img class="media-object" src="/iBooksBlue.png" width="64" height="64">
+		  </div>
+		  <div class="media-body">
+			<p class="text-center">
+			  <h2 class="media-heading">Учебные материалы курса</h2>
+			</p>
+		  </div>
+		</div>
+	  </div>
+	  <div class="panel-body">
+		<div class="row">
+		  <div class="col-md-6">
+			<div class="thumbnail">
+			  <div class="embed-responsive embed-responsive-4by3">
+				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/j92DxwHsQwo"></iframe>
+			  </div>
+			  <div class="caption">
+				<h3>Видео</h3>
+				<p>КАК ПРОВОДИТЬ ЭВАКУАЦИЮ ИЗ ОФИСА</p>
+			  </div>
+			</div>
+		  </div>
+		  <div class="col-md-6">
+			<div class="thumbnail">
+			  <div class="embed-responsive embed-responsive-4by3">
+				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/CZTzAMQlTWU"></iframe>
+			  </div>
+			  <div class="caption">
+				<h3>Видео</h3>
+				<p>КАК ТУШИТЬ ЭЛЕКТРИЧЕСКИЙ ЩИТОК</p>
+			  </div>
+			</div>
+		  </div>
+		  <div class="col-md-6">
+			<div class="thumbnail">
+			  <div class="embed-responsive embed-responsive-4by3">
+				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/E1l8kKzUqck"></iframe>
+			  </div>
+			  <div class="caption">
+				<h3>Видео</h3>
+				<p>ЭВАКУАЦИЯ ПРИ ПОЖАРЕ</p>
+			  </div>
+			</div>
+		  </div>
+		</div>
+		<div class="row">
+		  
+		  <div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
+			  <div class="caption">
+				<h3>Лекция</h3>
+				<p>Охрана труда для руководителей организаций часть 1</p>
+				<p>
+				  <a href="#" class="btn btn-primary" role="button">Скачать</a>
+				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
+			  </div>
+			</div>
+		  </div>
+		  
+		  <div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
+			  <div class="caption">
+				<h3>Лекция</h3>
+				<p>Охрана труда для руководителей организаций часть 2</p>
+				<p>
+				  <a href="#" class="btn btn-primary" role="button">Скачать</a>
+				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
+			  </div>
+			</div>
+		  </div>
+		  
+		  <div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
+			  <div class="caption">
+				<h3>Лекция</h3>
+				<p>Охрана труда для руководителей организаций часть 3</p>
+				<p>
+				  <a href="#" class="btn btn-primary" role="button">Скачать</a>
+				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
+			  </div>
+			</div>
+		  </div>
+		  
+		  <div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
+			  <div class="caption">
+				<h3>Лекция</h3>
+				<p>Охрана труда для руководителей организаций часть 4</p>
+				<p>
+				  <a href="#" class="btn btn-primary" role="button">Скачать</a>
+				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
+			  </div>
+			</div>
+		  </div>
+		  
+		  <div class="col-sm-6 col-md-4">
+			<div class="thumbnail">
+			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
+			  <div class="caption">
+				<h3>Лекция</h3>
+				<p>Пояснения по тесту Охрана труда</p>
+				<p>
+				  <a href="#" class="btn btn-primary" role="button">Скачать</a>
+				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
+			  </div>
+			</div>
+		  </div>
+		  
+		  
+		</div>
+	  </div>
+	  <div class="panel-footer">учебные материалы</div>
+	</div>
+  </div>
+  
+</div>
+<div class="row">
+  <aside class="col-md-3">
+  </aside>
+  <div class="col-md-9">
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+		<div class="media">
+		  <div class="media-left media-top">
+			<img class="media-object" src="/test-icon-20914.png" width="64" height="64">
+		  </div>
+		  <div class="media-body">
+			<p class="text-center">
+			  <strong><h3 class="media-heading">Контрольные тесты</h3></strong>
+			</p>
+		  </div>
+		</div>
+	  </div>
+	  <div class="panel-body">
+		<a href="http://www.centrpik.com/tests/5/questions/6/testing/new">обучение по охране труда работников организаций</a>
+	  </div>
+	  <div class="panel-footer">тесты</div>
+	</div>
+  </div>
+</div>
