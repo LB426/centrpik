@@ -4,10 +4,6 @@
 	<%= render "users/left_menu" %>
   </aside>
   <div class="col-md-9">
-	<div class="panel panel-default">
-	  <div class="panel-heading">
-		Panel heading
-	  </div>
 	  <table class="table">
 		<thead>
 		  <tr>
@@ -23,7 +19,9 @@
 		  <% @courses.each do |course| %>
 			<tr>
 			  <th scope="row"><%= course.id %></th>
-			  <td><%= course.name %></td>
+			  <td>
+				<%= link_to course.name, course_path(course) %>
+			  </td>
 			  <% if current_user.admin? %>
 				<td>
 				  <%= link_to "Редактировать", edit_course_path(course),
@@ -40,6 +38,5 @@
 		  <% end %>
 		</tbody>
 	  </table>
-	</div>
   </div>
 </div>
