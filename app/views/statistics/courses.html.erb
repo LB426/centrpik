@@ -1,31 +1,38 @@
-<h1>Результат прохождения курсов</h1>
-<p>
-пользователь: <%= @user.family %> 
-<%= @user.name %> 
-<%= @user.otchestvo %>
-</p>
-<p>
-результат прохождения тестов:<br>
-  <table class="table">
-	<thead>
-	  <tr>
-		<th>Название теста</th>
-		<th>комментарий</th>
-		<th>оценка</th>
-	  </tr>
-	</thead>
-	<tbody>
-	<% @attempts.each do |attempt| %>
-	  <tr>
-		<td><%= Test.find(attempt.test_id).name %></td>
-		<td><%= link_to attempt.comment,
-			            stat_course_path( attempt.user_id,
-						                  attempt.test_id,
-						                  attempt.id) %>
-		</td>
-		<td><%= attempt.assessment %></td>
-	  </tr>
-	<% end %>
-	</tbody>
-  </table>
-</p>
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+	</aside>
+	<div class="col-md-9">
+	  <h1>Результат прохождения курсов</h1>
+	  <p>
+		пользователь: <%= @user.family %> 
+		<%= @user.name %> 
+		<%= @user.otchestvo %>
+	  </p>
+	  <p>
+		результат прохождения тестов:<br>
+		<table class="table">
+		  <thead>
+			<tr>
+			  <th>Название теста</th>
+			  <th>комментарий</th>
+			  <th>оценка</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<% @attempts.each do |attempt| %>
+			  <tr>
+				<td><%= Test.find(attempt.test_id).name %></td>
+				<td><%= link_to attempt.comment,
+			        stat_course_path( attempt.user_id,
+					  attempt.test_id,
+					  attempt.id) %>
+				</td>
+				<td><%= attempt.assessment %></td>
+			  </tr>
+			<% end %>
+		  </tbody>
+		</table>
+	  </p>
+	</div>
+</div>

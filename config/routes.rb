@@ -57,4 +57,8 @@ Rails.application.routes.draw do
   get 'statistics/user/:user_id/course/:course_id/attempt/:attempt_id' => 'statistics#course', :as => 'stat_course'
   # компания
   resources :companies
+  # учебные материалы
+  resources :edumaterials
+  resources :books,  controller: 'edumaterials', type: 'Book'
+  resources :videos,  controller: 'edumaterials', type: 'Video'
 end

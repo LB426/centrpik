@@ -1,0 +1,26 @@
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h1>Загрузить книгу</h1>
+	<%= form_for(@book, html: { multipart: true }) do |f| %>
+	  <%= render 'shared/error_messages', object: f.object %>
+
+	  <div class="field">
+		<%= f.text_field :name, placeholder: "введите название книги" %>
+	  </div>
+	  
+	  <div class="field">
+		<%= f.text_area :description, placeholder: "введите описание книги" %>
+	  </div>
+
+	  <span class="picture">
+		<%= f.file_field :file %>
+	  </span>
+	  
+	  <%= f.submit "Загрузить", class: "btn btn-primary" %>
+
+	<% end %>
+  </div>
+</div>

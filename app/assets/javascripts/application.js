@@ -18,6 +18,10 @@
 var acounter = 0;
 
 $(document).ready(function(){
+  $(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+  });
+
 
   $( "[name='OpenQuestionBtn']" ).click(function(){
 	//alert("OpenQuestionBtn");

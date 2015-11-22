@@ -13,7 +13,15 @@
 		  <th>&nbsp;</th>
 		  <th>&nbsp;</th>
 		  <% if current_user.admin? %>
-			<th>&nbsp;</th>
+			<th>
+			  <%= link_to '<span class="glyphicon glyphicon-plus"
+                           aria-hidden="true"></span>'.html_safe,
+						   tests_new_path,
+			               class: "btn btn-primary btn-sm",
+			               "data-toggle" => "tooltip",
+			               "data-placement" => "bottom",
+			               title: "создать тест" %>
+			</th>
 			<th>&nbsp;</th>
 		  <% end %>
 		</tr>

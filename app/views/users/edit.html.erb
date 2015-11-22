@@ -1,11 +1,10 @@
 <% provide(:title, "Edit user") %>
 <div class="row">
-  <div class="col-md-4 col-md-offset-3">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
 	<h3>Настройки пользователя</h3>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
 	<%= form_for(@user) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>
 
@@ -38,3 +37,4 @@
 	</div>
   </div>
 </div>
+

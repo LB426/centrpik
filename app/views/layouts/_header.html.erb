@@ -1,6 +1,12 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
+<header class="navbar navbar-fixed-top navbar-default">
   <div class="container">
-    <%= link_to "Центр ПИК", root_path, id: "logo" %>
+	<% if logged_in? %>
+	  <%= link_to '<span class="glyphicon glyphicon-home"
+                   aria-hidden="true"></span>'.html_safe,
+				   user_path(current_user), id: "logo" %>
+	<% else %>
+      <%= link_to "Центр ПИК", root_path, id: "logo" %>
+	<% end %>
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>

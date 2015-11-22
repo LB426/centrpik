@@ -1,0 +1,2 @@
+module EdumaterialsHelper
+end

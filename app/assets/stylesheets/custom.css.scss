@@ -38,13 +38,13 @@ textarea {
   float: left;
   margin-right: 10px;
   font-size: 1.7em;
-  color: #fff;
+  color: $gray-light;
   text-transform: uppercase;
   letter-spacing: -1px;
   padding-top: 9px;
   font-weight: bold;
   &:hover {
-  	color: white;
+  	color: $brand-primary;
   	text-decoration: none;
   }
 }

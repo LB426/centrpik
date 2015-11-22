@@ -1,0 +1,60 @@
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<table class="table">
+	  <thead>
+		<tr>
+		  <th>#</th>
+		  <th>Название</th>
+		  <% if current_user.admin? %>
+			<th>&nbsp;</th>
+			<th>&nbsp;</th>
+			<th>
+			  <% if @mtype == "Video" %>
+				<%= link_to '<span class="glyphicon glyphicon-plus"
+                            aria-hidden="true"></span>'.html_safe,
+				  		   new_video_path,
+			               class: "btn btn-primary btn-sm",
+			               "data-toggle" => "tooltip",
+			               "data-placement" => "bottom",
+			               title: "добавить материал" %>
+			  <% end %>
+			  <% if @mtype == "Book" %>
+				<%= link_to '<span class="glyphicon glyphicon-plus"
+                            aria-hidden="true"></span>'.html_safe,
+				  		   new_book_path,
+			               class: "btn btn-primary btn-sm",
+			               "data-toggle" => "tooltip",
+			               "data-placement" => "bottom",
+			               title: "добавить материал" %>
+			  <% end %>
+			</th>
+		  <% end %>
+		</tr>
+	  </thead>
+	  <tbody>
+		<% @edumaterials.each do |emat| %>
+		  <tr>
+			<th scope="row"><%= emat.id %></th>
+			<td><%= link_to emat.name, "" %></td>
+			<td><%= link_to emat.file_file_name, "" %></td>
+			<% if current_user.admin? %>
+			  <td>
+				<%= link_to "Редактировать", "",
+		        :class => "btn btn-danger btn-xs" %>
+			  </td>
+			  <td>
+				<%= link_to "Удалить", "",
+		        :method => :delete,
+			    :data => { confirm: "Вы уверены?" },
+			    :class => "btn btn-danger btn-xs" %>
+			  </td>
+			<% end %>
+		  </tr>
+		<% end %>
+	  </tbody>
+	</table>
+  </div>
+</div>
