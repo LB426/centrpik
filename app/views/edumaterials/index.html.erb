@@ -9,7 +9,6 @@
 		  <th>#</th>
 		  <th>Название</th>
 		  <% if current_user.admin? %>
-			<th>&nbsp;</th>
 			<th>
 			  <% if @mtype == "Video" %>
 				<%= link_to '<span class="glyphicon glyphicon-plus"
@@ -37,18 +36,28 @@
 		<% @edumaterials.each do |emat| %>
 		  <tr>
 			<th scope="row"><%= emat.id %></th>
-			<td><%= link_to emat.name, "" %></td>
-			<td><%= link_to emat.file_file_name, "" %></td>
+			<td>
+			  <% if @mtype == "Video" %>
+				<%= link_to emat.name, video_path(emat) %>
+			  <% end %>
+			  <% if @mtype == "Book" %>
+				<%= link_to emat.name, emat.file.url %>
+			  <% end %>
+			</td>
 			<% if current_user.admin? %>
 			  <td>
-				<%= link_to "Редактировать", "",
-		        :class => "btn btn-danger btn-xs" %>
-			  </td>
-			  <td>
-				<%= link_to "Удалить", "",
-		        :method => :delete,
-			    :data => { confirm: "Вы уверены?" },
-			    :class => "btn btn-danger btn-xs" %>
+				<% if @mtype == "Video" %>
+				  <%= link_to "Удалить", video_path(emat),
+		                                 :method => :delete,
+			                             :data => { confirm: "Вы уверены?" },
+			                             :class => "btn btn-danger btn-xs" %>
+				<% end %>
+				<% if @mtype == "Book" %>
+				  <%= link_to "Удалить", book_path(emat),
+		                                 :method => :delete,
+			                             :data => { confirm: "Вы уверены?" },
+			                             :class => "btn btn-danger btn-xs" %>
+				<% end %>
 			  </td>
 			<% end %>
 		  </tr>

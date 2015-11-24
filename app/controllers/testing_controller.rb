@@ -1,5 +1,7 @@
 # coding: utf-8
 class TestingController < ApplicationController
+  before_action :logged_in_user
+  
   def new
     @test = Test.find(params[:test_id])
     @question = @test.test_questions.find(params[:question_id])
@@ -24,10 +26,13 @@ class TestingController < ApplicationController
   end
   
   def create
+    @user = User.find(params[:user_id])
+    @course = Course.find(params[:course_id])
     @test = Test.find(params[:test_id])
     @question = @test.test_questions.find(params[:question_id])
     # найти последний вопрос теста
     @last_question = @test.test_questions.all.last
+    # найти первый вопрос теста
     @first_question = @test.test_questions.all.first
     # если это первый вопрос теста
     comment = "no comment"
@@ -189,4 +194,19 @@ class TestingController < ApplicationController
     @questions = @test.test_questions.all.order(id: "ASC")
   end
 
+  def corporate_new
+    @test = Test.find(params[:test_id])
+    @question = @test.test_questions.find(params[:question_id])
+    @answers = @question.answers.all.order(:id => "ASC")
+    TestingIntermediateResult.where( "user_id=:user_id AND test_id=:test_id",
+                                     {
+                                       user_id: current_user.id,
+                                       test_id: @test.id
+                                     }
+                                   ).destroy_all
+    @first_question = @test.test_questions.all.first
+    @last_question = @test.test_questions.all.last    
+  end
+  
+  
 end

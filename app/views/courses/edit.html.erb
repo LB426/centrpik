@@ -1,4 +1,9 @@
 <% provide(:title, "Редактор курса") %>
+<div class="row">
+   <aside class="col-md-3">
+	 <%= render "users/left_menu" %>
+	 </aside>
+	 <div class="col-md-9">
 <div class="highlight">
   <fieldset>	
 	<legend>Редактор курса</legend>
@@ -15,7 +20,8 @@
 	  <hr>
 	  <table class="table table-condensed">
 		<caption>
-		  Чтобы создать связь теста с курсом кликните на кнопку "Связать"
+		  Чтобы добавить <strong>ТЕСТ</strong> к <strong>КУРСУ</strong>
+		  кликните на кнопку <strong>"СВЯЗАТЬ"</strong>
 		</caption>
 		<thead>
 		  <tr>
@@ -29,7 +35,94 @@
 			<tr>
 			  <th scope="row"><%= test.id %></th>
 			  <td><%= test.name %></td>
-			  <td><%= link_to "связать", "", :class => "btn btn-primary btn-xs" %></td>
+			  <td>
+				<% count = Coursetotest.where("course_id = ? AND test_id = ?",
+											  @course.id, test.id).size %>
+				<% if count == 0 %>
+				  <%= link_to "связать", link_course_test_create_path(@course, test),
+				  :method=> :post,
+				  :class => "btn btn-primary btn-xs" %>
+				<% else %>
+				  <%= link_to "удалить связь", link_course_test_destroy_path(@course, test),
+			      :method => :delete,
+				  :data => { confirm: "Вы уверены?" },
+			      :class => "btn btn-danger btn-xs" %>
+				<% end %>
+			  </td>
+			</tr>
+		  <% end %>
+		</tbody>
+	  </table>
+	  <hr>
+	  <table class="table table-condensed">
+		<caption>
+		  Чтобы добавить <strong>ВИДЕО</strong> к <strong>КУРСУ</strong>
+		  кликните на кнопку <strong>"СВЯЗАТЬ"</strong>
+		</caption>
+		<thead>
+		  <tr>
+			<th>#</th>
+			<th>Название видео</th>
+			<th>&nbsp;</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <% Video.all.each do |video| %>
+			<tr>
+			  <th scope="row"><%= video.id %></th>
+			  <td><%= video.name %></td>
+			  <td>
+				<% count = Coursetovideo.where("course_id = ? AND video_id = ?",
+											  @course.id, video.id).size %>
+				<% if count == 0 %>
+				  <%= link_to "связать", link_course_video_create_path(@course, video),
+				  :method=> :post,
+				  :class => "btn btn-primary btn-xs" %>
+				<% else %>
+				  <%= link_to "удалить связь",
+				              link_course_video_destroy_path(@course, video),
+			      :method => :delete,
+				  :data => { confirm: "Вы уверены?" },
+			      :class => "btn btn-danger btn-xs" %>
+				<% end %>
+			  </td>
+			</tr>
+		  <% end %>
+		</tbody>
+	  </table>
+	  <hr>
+	  <table class="table table-condensed">
+		<caption>
+		  Чтобы добавить <strong>КНИГУ</strong> к <strong>КУРСУ</strong>
+		  кликните на кнопку <strong>"СВЯЗАТЬ"</strong>
+		</caption>
+		<thead>
+		  <tr>
+			<th>#</th>
+			<th>Название книги</th>
+			<th>&nbsp;</th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <% Book.all.each do |book| %>
+			<tr>
+			  <th scope="row"><%= book.id %></th>
+			  <td><%= book.name %></td>
+			  <td>
+				<% count = Coursetobook.where("course_id = ? AND book_id = ?",
+											  @course.id, book.id).size %>
+				<% if count == 0 %>
+				  <%= link_to "связать", link_course_book_create_path(@course, book),
+				  :method=> :post,
+				  :class => "btn btn-primary btn-xs" %>
+				<% else %>
+				  <%= link_to "удалить связь",
+				              link_course_book_destroy_path(@course, book),
+			      :method => :delete,
+				  :data => { confirm: "Вы уверены?" },
+			      :class => "btn btn-danger btn-xs" %>
+				<% end %>
+			  </td>
 			</tr>
 		  <% end %>
 		</tbody>
@@ -39,4 +132,6 @@
 	  </div>
 	<% end %>
   </fieldset>
+</div>
+</div>
 </div>

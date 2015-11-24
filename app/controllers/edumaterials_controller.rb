@@ -1,5 +1,7 @@
 # coding: utf-8
 class EdumaterialsController < ApplicationController
+  before_action :admin_user
+  
   def index
     @mtype = params[:type]
     logger.debug "TYPE: #{@mtype}"
@@ -21,20 +23,72 @@ class EdumaterialsController < ApplicationController
   end
 
   def create
-    @edumat = Book.create(micropost_params)
-    if @edumat.save
-      flash[:success] = "Материал добавлен!"
-      redirect_to books_path
+    mtype = params[:type]
+    if mtype == "Video"
+      @video = Video.create(video_params)
+      if @video.save
+        flash[:success] = "Ссылка на видео добавлена!"
+        redirect_to videos_path
+      else
+        flash[:success] = "ОШИБКА: ссылка на видео НЕ добавлена!"
+        redirect_to new_video_path
+      end
+    elsif mtype == "Book"
+      @book = Book.create(book_params)
+      if @book.save
+        @book.name = @book.file_file_name
+        @book.save
+        flash[:success] = "Книга добавлена!"
+        redirect_to books_path
+      else
+        flash[:success] = "ОШИБКА: книга НЕ добавлена!"
+        redirect_to new_book_path
+      end
     else
-      flash[:success] = "ОШИБКА: Материал НЕ добавлен!"
-      redirect_to new_book_path
+      flash[:info] = "Ошибка. Нет такого типа материала: mtype='#{@mtype}'."
+      redirect_to edumaterials_path
     end
   end
 
+  def destroy
+    mtype = params[:type]
+    if mtype == "Video"
+      # делаем для видео
+      @video = Video.find(params[:id])
+      @video.destroy
+      flash[:success] = "Видео удалено."
+      redirect_to videos_path
+    elsif mtype == "Book"
+      @book = Book.find(params[:id])
+      @book.destroy
+      flash[:success] = "Книга удалена."
+      redirect_to books_path
+    else
+      flash[:info] = "Ошибка. Нет такого типа материала: mtype='#{@mtype}'."
+      redirect_to edumaterials_path
+    end
+  end
+
+  def show
+    mtype = params[:type]
+    if mtype == "Video"
+      @video = Video.find(params[:id])
+    elsif mtype == "Book"
+      @book = Book.find(params[:id])
+    else
+      flash[:info] = "Ошибка. Нет такого типа материала: mtype='#{@mtype}'."
+      redirect_to root_path
+    end
+  end
+  
 private
 
-  def micropost_params
+  def book_params
     params.require(:book).permit(:name, :description, :file)
+  end
+
+  def video_params
+    params.require(:video).permit(:name, :description, :youtubelink)
   end
   
 end

@@ -1,0 +1,27 @@
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h3>
+	  <p class="text-center">
+		Для прохождения теста<br>
+		<strong><%= @test.name %></strong><br>
+		выберите Ф.И.О. тестируемого сотрудника
+	  </p>
+	</h3>
+	
+	<% @users.each do |user| %>
+	  <% fio = "#{user.family} #{user.name} #{user.otchestvo}" %>
+	  <% ftq = @test.test_questions.all.order(:id => "asc")[0] %>
+	  <div class="row">
+		<div class="col-md-12">
+		  <%= link_to "#{fio} пройти тест <strong>#{@test.name}</strong>".html_safe,
+		  enterprise_testing_path(user,@course,@test,ftq),
+		  class: "btn btn-primary btn-block buttontext" %>
+		</div>
+	  </div>&nbsp;
+	<% end %>
+
+  </div>
+</div>

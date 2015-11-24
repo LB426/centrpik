@@ -1,0 +1,17 @@
+<section class="user_info">
+  <h1>
+	<%= gravatar_for current_user %>
+	<%= @user.name %>
+	<%= @user.otchestvo %>
+	<%= @user.family %>
+  </h1>
+  <% if current_user.type == "Corporate" %>
+	<strong>&laquo;<%= @company.name %>&raquo;</strong>
+  <% end %>
+</section>
+<section>
+  Вы проходите тест по курсу<br>
+  <strong><%= @course.name %></strong>
+  <%= link_to "Перейти к курсу", course_path(@course),
+  :class => "btn btn-default btn-block" %>
+</section>

@@ -1,0 +1,12 @@
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h2>видео <strong><%= @video.name %></strong></h2>
+	<div class="embed-responsive embed-responsive-16by9">
+	  <iframe class="embed-responsive-item" src="<%= @video.youtubelink %>">
+	  </iframe>
+	</div>
+  </div>
+</div>

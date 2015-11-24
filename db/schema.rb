@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151120120342) do
+ActiveRecord::Schema.define(version: 20151123104722) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -38,6 +38,27 @@ ActiveRecord::Schema.define(version: 20151120120342) do
     t.datetime "updated_at",                null: false
   end
 
+  create_table "coursetobooks", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.integer  "book_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "coursetotests", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.integer  "test_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "coursetovideos", force: :cascade do |t|
+    t.integer  "course_id",  limit: 4
+    t.integer  "video_id",   limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "edumaterials", force: :cascade do |t|
     t.text     "description",       limit: 65535
     t.string   "type",              limit: 255
@@ -48,6 +69,7 @@ ActiveRecord::Schema.define(version: 20151120120342) do
     t.string   "file_content_type", limit: 255
     t.integer  "file_file_size",    limit: 4
     t.datetime "file_updated_at"
+    t.string   "youtubelink",       limit: 255
   end
 
   create_table "microposts", force: :cascade do |t|

@@ -43,109 +43,45 @@
 		</div>
 	  </div>
 	  <div class="panel-body">
+
+		<!-- видео -->
 		<div class="row">
-		  <div class="col-md-6">
-			<div class="thumbnail">
-			  <div class="embed-responsive embed-responsive-4by3">
-				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/j92DxwHsQwo"></iframe>
-			  </div>
-			  <div class="caption">
-				<h3>Видео</h3>
-				<p>КАК ПРОВОДИТЬ ЭВАКУАЦИЮ ИЗ ОФИСА</p>
-			  </div>
-			</div>
-		  </div>
-		  <div class="col-md-6">
-			<div class="thumbnail">
-			  <div class="embed-responsive embed-responsive-4by3">
-				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/CZTzAMQlTWU"></iframe>
-			  </div>
-			  <div class="caption">
-				<h3>Видео</h3>
-				<p>КАК ТУШИТЬ ЭЛЕКТРИЧЕСКИЙ ЩИТОК</p>
+		  <% @videos.each do |video| %>
+			<div class="col-md-6">
+			  <div class="thumbnail">
+				<div class="embed-responsive embed-responsive-16by9">
+				  <iframe class="embed-responsive-item"
+					  src="<%= video.youtubelink %>"></iframe>
+				</div>
+				<div class="caption">
+				  <h3>Видео</h3>
+				  <p><%= video.name %></p>
+				</div>
 			  </div>
 			</div>
-		  </div>
-		  <div class="col-md-6">
-			<div class="thumbnail">
-			  <div class="embed-responsive embed-responsive-4by3">
-				<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/E1l8kKzUqck"></iframe>
-			  </div>
-			  <div class="caption">
-				<h3>Видео</h3>
-				<p>ЭВАКУАЦИЯ ПРИ ПОЖАРЕ</p>
-			  </div>
-			</div>
-		  </div>
+		  <% end %>
 		</div>
+		
+		<!-- литература -->
 		<div class="row">
-		  
-		  <div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			  <img src="http://supportcard.com/media/1081/icon_manual.png" alt="..." width="64" height="64">
-			  <div class="caption">
-				<h3>Лекция</h3>
-				<p>Охрана труда для руководителей организаций часть 1</p>
-				<p>
-				  <a href="/library/Лекция - Охрана труда для руководителей организаций часть 1 .docx" class="btn btn-primary" role="button">Скачать</a>
-				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
-			  </div>
-			</div>
-		  </div>
-		  
+		  <% @books.each do |book| %>
 		  <div class="col-sm-6 col-md-4">
 			<div class="thumbnail">
 			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
 			  <div class="caption">
 				<h3>Лекция</h3>
-				<p>Охрана труда для руководителей организаций часть 2</p>
+				<p><%= book.name %></p>
 				<p>
-				  <a href="/library/Лекция - Охрана труда для руководителей организаций часть 2.docx" class="btn btn-primary" role="button">Скачать</a>
-				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
+				  <%= link_to "Скачать", book.file.url,
+				              class: "btn btn-primary",
+				              role: "button" %>
+				  <%= link_to "Читать", book.file.url,
+				              class: "btn btn-primary",
+				              role: "button" %>
 			  </div>
 			</div>
 		  </div>
-		  
-		  <div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
-			  <div class="caption">
-				<h3>Лекция</h3>
-				<p>Охрана труда для руководителей организаций часть 3</p>
-				<p>
-				  <a href="/library/Лекция - Охрана труда для руководителей организаций часть 3.docx" class="btn btn-primary" role="button">Скачать</a>
-				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
-			  </div>
-			</div>
-		  </div>
-		  
-		  <div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
-			  <div class="caption">
-				<h3>Лекция</h3>
-				<p>Охрана труда для руководителей организаций часть 4</p>
-				<p>
-				  <a href="/library/Лекция - Охрана труда для руководителей организаций часть 4.docx" class="btn btn-primary" role="button">Скачать</a>
-				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
-			  </div>
-			</div>
-		  </div>
-		  
-		  <div class="col-sm-6 col-md-4">
-			<div class="thumbnail">
-			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
-			  <div class="caption">
-				<h3>Лекция</h3>
-				<p>Пояснения по тесту Охрана труда</p>
-				<p>
-				  <a href="/library/Пояснения по тесту Охрана труда.docx" class="btn btn-primary" role="button">Скачать</a>
-				  <a href="#" class="btn btn-default" role="button">Читать</a></p>
-			  </div>
-			</div>
-		  </div>
-		  
-		  
+		  <% end %>
 		</div>
 	  </div>
 	  <div class="panel-footer">учебные материалы</div>
@@ -171,7 +107,22 @@
 		</div>
 	  </div>
 	  <div class="panel-body">
-		<a href="http://www.centrpik.com/tests/5/questions/6/testing/new">обучение по охране труда работников организаций</a>
+		  <% @tests.each do |test| %>
+		  <div class="row">
+			<div class="col-md-1"><%= test.id %></div>
+			<div class="col-md-9"><%= test.name %></div>
+			<div class="col-md-2">
+			  <% first_question = test.test_questions.all.order(:id => "asc")[0] %>
+			  <% if current_user.type == "Corporate" %>
+				<%= link_to "пройти тест", enterprise_testing_employe_select_path(@course,test),
+				:class=>"btn btn-primary btn-xs" %>
+			  <% else %>
+				<%= link_to "пройти тест", testing_new_path(test, first_question),
+				:class=>"btn btn-primary btn-xs" %>
+			  <% end %>
+			</div>
+		  </div>
+		  <% end %>
 	  </div>
 	  <div class="panel-footer">тесты</div>
 	</div>

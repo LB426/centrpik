@@ -24,6 +24,26 @@ class CoursesController < ApplicationController
 
   def show
     @course = Course.find(params[:id])
+    links = Coursetovideo.where("course_id = ?", @course)
+    video_id_arr = Array.new
+    links.each do |link|
+      video_id_arr << link.video_id
+    end
+    @videos = Video.find(video_id_arr)
+    
+    links = Coursetobook.where("course_id = ?", @course)
+    book_id_arr = Array.new
+    links.each do |link|
+      book_id_arr << link.book_id
+    end
+    @books = Book.find(book_id_arr)
+
+    links = Coursetotest.where("course_id = ?", @course)
+    test_id_arr = Array.new
+    links.each do |link|
+      test_id_arr << link.test_id
+    end
+    @tests = Test.find(test_id_arr)
   end
 
   def edit

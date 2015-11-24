@@ -42,11 +42,14 @@ Rails.application.routes.draw do
   delete 'tests/:test_id/answer/:answer_id' => 'test_questions#answer_destroy',:as => 'test_questions_answer_destroy'
   # тестирование
   get  'tests/:test_id/questions/:question_id/testing/new'      => 'testing#new',      :as => 'testing_new'
-  post 'tests/:test_id/questions/:question_id/testing'          => 'testing#create',   :as => 'testing_result_create'
+  post 'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/testing' => 'testing#create', :as => 'testing_result_create'
   get  'tests/:test_id/questions/:question_id/testing/continue' => 'testing#continue', :as => 'testing_continue'
   get  'tests/:test_id/attempt/:attempt/comment' => 'testing#attempt_comment', :as => 'testing_attempt_comment'
   get  'tests/:id/attempt/:attempt/show'                        => 'testing#show',     :as => 'testing_result_show'
-  get  'tests/:id/testing/details'                              => 'testing#details',  :as => 'testing_details'  
+  get  'tests/:id/testing/details'                              => 'testing#details',  :as => 'testing_details'
+  # тестирование для корпоративного пользователя
+  get 'enterprise/course/:course_id/test/:test_id/employe/select' => 'enterprise#testing_employe_select', :as => 'enterprise_testing_employe_select'
+  get 'enterprise/employe/:user_id/course/:course_id/test/:test_id/question/:question_id/testing' => 'enterprise#testing', :as => 'enterprise_testing'
   # обучающее видео
   get 'tvideo' => 'training_video#index', :as => 'training_video'
   # учебные курсы
@@ -61,4 +64,14 @@ Rails.application.routes.draw do
   resources :edumaterials
   resources :books,  controller: 'edumaterials', type: 'Book'
   resources :videos,  controller: 'edumaterials', type: 'Video'
+  # линк курса с тестом
+  post   'links/course/:course_id/test/:test_id'   => 'links#create_course_to_test_link',   :as => 'link_course_test_create'
+  delete 'links/course/:course_id/test/:test_id'   => 'links#destroy_course_to_test_link',  :as => 'link_course_test_destroy'
+  # линк курса с видео
+  post   'links/course/:course_id/video/:video_id' => 'links#create_course_to_video_link',  :as => 'link_course_video_create'
+  delete 'links/course/:course_id/video/:video_id' => 'links#destroy_course_to_video_link', :as => 'link_course_video_destroy'
+  # линк курса с книгой
+  post   'links/course/:course_id/book/:book_id'   => 'links#create_course_to_book_link',   :as => 'link_course_book_create'
+  delete 'links/course/:course_id/book/:book_id'   => 'links#destroy_course_to_book_link',  :as => 'link_course_book_destroy'   
+  
 end
