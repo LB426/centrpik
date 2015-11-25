@@ -40,8 +40,8 @@ $(document).ready(function(){
 		'<div class="row">' +
 		'<div class="col-xs-12">' +
 		'<label>ответ</label>' +
-		'<input class="form-control input-sm" placeholder="введите ответ"' +
-		'name="answers[' + acounter + '][text]">' +
+		'<textarea class="form-control" rows="2" placeholder="введите ответ"' +
+		'name="answers[' + acounter + '][text]"></textarea>' +
 		'</div>' +
 		'</div>' +
 		'<div class="row">' +

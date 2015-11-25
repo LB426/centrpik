@@ -1,5 +1,10 @@
 <% provide(:title, "Вопросы к тестам") %>
 <div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+	</aside>
+	<div class="col-md-9">
+<div class="row">
   <div class="col-md-12 center"><h4>Создание вопросов для теста</h4></div>
 </div>
 <div class="row">
@@ -11,7 +16,9 @@
 	<%= form_tag(test_questions_create_path(@test), multipart: true) do -%>
 	  <div class="form-group">
 		<label>вопрос</label>
-		<input class="form-control input-lg" placeholder="введите вопрос" name="question">
+		<textarea class="form-control input-lg" name="question" rows="3"
+			placeholder="введите вопрос">
+		</textarea>
 	  </div>
 	  
 	  <div id="NewQuestionAndHimAnswersBlock">
@@ -43,13 +50,15 @@
 		  </button>
 		</div>
 		
-		<div class="col-xs-2 col-md-offset-8">
+		<div class="col-xs-3 col-md-offset-7">
 		  <%= submit_tag "Сохранить вопрос", class: "btn btn-primary" %>
 		</div>
 	  </div>
 	<% end -%>
 
   </div>
+</div>
+</div>
 </div>
 
 <script>

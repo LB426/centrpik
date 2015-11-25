@@ -37,7 +37,13 @@
 			</td>
 			<td>
 			  <%= link_to "курсы", stat_courses_path(user),
-		      class: "btn btn-primary btn-sm" %>
+		                   class: "btn btn-primary btn-sm" %>
+			</td>
+			<td>
+			  <%= link_to '<span class="glyphicon glyphicon-user"
+                           aria-hidden="true"></span>'.html_safe,
+						   session_changeuser_path(user),  method: :post,
+						   class: "btn btn-success btn-xs" %>
 			</td>
 		  </tr>
 		<% end %>

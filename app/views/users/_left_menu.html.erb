@@ -6,39 +6,32 @@
 	<%= current_user.family %>
   </h1>
   <% if current_user.type == "Corporate" %>
-	<strong>&laquo;<%= current_user.companies.first.name %>&raquo;</strong>
+	<% company = Company.find(current_user.company_id) %>
+	<strong>&laquo;<%= company.name %>&raquo;</strong>
   <% end %>
 </section>
 <section>
-  <%= link_to "Курсы", courses_path, :class => "btn btn-default btn-block" %>
-  <% if current_user.type != "Corporate" %>
+  <% if current_user.type == "Corporate" %>
+	<%= link_to "Выбрать курс", training_courses_path,
+	                            :class => "btn btn-default btn-block" %>
+  <% else %>
+	<%= link_to "Выбрать курс", training_courses_path,
+	                            :class => "btn btn-default btn-block" %>	
+  <% end %>
+  <% if current_user.type == "Individual" %>
 	<%= link_to "Для корпоративных клиентов",
                 new_company_path,
 	            :class => "btn btn-default btn-block" %>
-  <% else %>
-	<%= link_to "Сотрудники",
-	            employes_path,
-	            :class => "btn btn-default btn-block" %>
-	<%= link_to "Добавить сотрудника",
-	            employe_new_path,
-	            :class => "btn btn-default btn-block" %>
-	<%= link_to "Компания",
-	            edit_company_path(current_user.companies.first),
-	            :class => "btn btn-default btn-block" %>
-
   <% end %>
 </section>
 
 <% if current_user.admin? %>
   <section>
 	<p class="bg-danger text-center">меню администратора</p>
-	<%= link_to "Пользователи", users_path,
-    :class => "btn btn-danger btn-block" %>
-	<%= link_to "Тесты", tests_path, 
-    :class => "btn btn-danger btn-block" %>
-	<%= link_to "Видео", videos_path, 
-    :class => "btn btn-danger btn-block" %>
-	<%= link_to "Книги", books_path, 
-    :class => "btn btn-danger btn-block" %>
+	<%= link_to "Пользователи", users_path, :class => "btn btn-danger btn-block" %>
+	<%= link_to "Тесты", tests_path,   :class => "btn btn-danger btn-block" %>
+	<%= link_to "Видео", videos_path,  :class => "btn btn-danger btn-block" %>
+	<%= link_to "Книги", books_path,   :class => "btn btn-danger btn-block" %>
+	<%= link_to "Курсы", courses_path, :class => "btn btn-danger btn-block" %>
   </section>
 <% end %>

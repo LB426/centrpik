@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151123104722) do
+ActiveRecord::Schema.define(version: 20151125101835) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -99,9 +99,9 @@ ActiveRecord::Schema.define(version: 20151123104722) do
     t.integer  "test_question_id", limit: 4
     t.integer  "answer_id",        limit: 4
     t.boolean  "proper"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.string   "comment",          limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "course_id",        limit: 4
   end
 
   add_index "testing_intermediate_results", ["answer_id"], name: "index_testing_intermediate_results_on_answer_id", using: :btree
@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 20151123104722) do
     t.boolean  "pdexeconfirm"
     t.string   "type",              limit: 255
     t.integer  "company_id",        limit: 4
+    t.boolean  "cadmin"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

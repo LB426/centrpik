@@ -117,7 +117,7 @@
 				<%= link_to "пройти тест", enterprise_testing_employe_select_path(@course,test),
 				:class=>"btn btn-primary btn-xs" %>
 			  <% else %>
-				<%= link_to "пройти тест", testing_new_path(test, first_question),
+				<%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
 				:class=>"btn btn-primary btn-xs" %>
 			  <% end %>
 			</div>

@@ -23,7 +23,9 @@ class CoursesController < ApplicationController
   end
 
   def show
+    @user = params[:user_id]
     @course = Course.find(params[:id])
+
     links = Coursetovideo.where("course_id = ?", @course)
     video_id_arr = Array.new
     links.each do |link|

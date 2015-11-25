@@ -1,11 +1,17 @@
 <% provide(:title, 'Новый тест') %>
-<h1><p class="text-center">Создание нового теста</p></h1>
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h1>
+	  <p class="text-center">Создание нового теста</p>
+	</h1>
     <%= form_for(@test) do |f| %>
 	  <%= render 'shared/error_messages', object: f.object %>      
       <%= f.label :name, "Название" %>
-      <%= f.text_field :name, class: "form-control input-lg", :placeholder => "введите название теста" %>
+      <%= f.text_field :name, class: "form-control input-lg",
+		:placeholder => "введите название теста" %>
       <%= f.submit "Создать", class: "btn btn-primary" %>
     <% end %>
   </div>

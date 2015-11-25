@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   get  'dlearning' => 'static_pages#dlearning'
   get    'library' => 'static_pages#library'
   # session  
-  get      'login' => 'sessions#new'
-  post     'login' => 'sessions#create'
-  delete  'logout' => 'sessions#destroy'
+  get     'login'      => 'sessions#new'
+  post    'login'      => 'sessions#create'
+  delete  'logout'     => 'sessions#destroy'
+  post    'changeuser/:user_id' => 'sessions#changeuser', :as => 'session_changeuser'
   # users
   get     'signup' => 'users#new'
   resources :users
@@ -41,9 +42,9 @@ Rails.application.routes.draw do
   patch  'tests/:test_id/question/:question_id' => 'test_questions#update',  :as => 'test_questions_update'
   delete 'tests/:test_id/answer/:answer_id' => 'test_questions#answer_destroy',:as => 'test_questions_answer_destroy'
   # тестирование
-  get  'tests/:test_id/questions/:question_id/testing/new'      => 'testing#new',      :as => 'testing_new'
-  post 'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/testing' => 'testing#create', :as => 'testing_result_create'
-  get  'tests/:test_id/questions/:question_id/testing/continue' => 'testing#continue', :as => 'testing_continue'
+  get  'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/new'      => 'testing#new',      :as => 'testing_new'
+  post 'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/create'   => 'testing#create',   :as => 'testing_result_create'
+  get  'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/continue' => 'testing#continue', :as => 'testing_continue'
   get  'tests/:test_id/attempt/:attempt/comment' => 'testing#attempt_comment', :as => 'testing_attempt_comment'
   get  'tests/:id/attempt/:attempt/show'                        => 'testing#show',     :as => 'testing_result_show'
   get  'tests/:id/testing/details'                              => 'testing#details',  :as => 'testing_details'
@@ -73,5 +74,6 @@ Rails.application.routes.draw do
   # линк курса с книгой
   post   'links/course/:course_id/book/:book_id'   => 'links#create_course_to_book_link',   :as => 'link_course_book_create'
   delete 'links/course/:course_id/book/:book_id'   => 'links#destroy_course_to_book_link',  :as => 'link_course_book_destroy'   
-  
+  # обучение
+  get 'training/courses' => 'training#courses', :as => 'training_courses'
 end

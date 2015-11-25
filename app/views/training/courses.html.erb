@@ -1,0 +1,26 @@
+<% provide(:title, "Курсы") %>
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<table class="table table-hover">
+	  <thead>
+		<tr>
+		  <th>&nbsp;</th>
+		  <th>Чтобы начать обучение кликните по названию курса</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<% @courses.each do |course| %>
+		  <tr>
+			<th scope="row">&nbsp;</th>
+			<td>
+			  <%= link_to course.name, course_path(course) %>
+			</td>
+		  </tr>
+		<% end %>
+	  </tbody>
+	</table>
+  </div>
+</div>

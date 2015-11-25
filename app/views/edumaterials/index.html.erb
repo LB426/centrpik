@@ -47,16 +47,20 @@
 			<% if current_user.admin? %>
 			  <td>
 				<% if @mtype == "Video" %>
-				  <%= link_to "Удалить", video_path(emat),
-		                                 :method => :delete,
-			                             :data => { confirm: "Вы уверены?" },
-			                             :class => "btn btn-danger btn-xs" %>
+				  <%= link_to '<span class="glyphicon glyphicon-remove"
+                               aria-hidden="true"></span>'.html_safe,
+							   video_path(emat),
+							   :method => :delete,
+							   :data => { confirm: "Вы уверены?" },
+							   :class => "btn btn-danger btn-xs" %>
 				<% end %>
 				<% if @mtype == "Book" %>
-				  <%= link_to "Удалить", book_path(emat),
-		                                 :method => :delete,
-			                             :data => { confirm: "Вы уверены?" },
-			                             :class => "btn btn-danger btn-xs" %>
+				  <%= link_to '<span class="glyphicon glyphicon-remove"
+                               aria-hidden="true"></span>'.html_safe,
+							   book_path(emat),
+		                       :method => :delete,
+			                   :data => { confirm: "Вы уверены?" },
+			                   :class => "btn btn-danger btn-xs" %>
 				<% end %>
 			  </td>
 			<% end %>
