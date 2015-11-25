@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   delete 'tests/:test_id/answer/:answer_id' => 'test_questions#answer_destroy',:as => 'test_questions_answer_destroy'
   # тестирование
   get  'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/new'      => 'testing#new',      :as => 'testing_new'
-  post 'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/create'   => 'testing#create',   :as => 'testing_result_create'
+  post 'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/create'   => 'testing#create', :as=>'testing_result_create'
   get  'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/continue' => 'testing#continue', :as => 'testing_continue'
   get  'tests/:test_id/attempt/:attempt/comment' => 'testing#attempt_comment', :as => 'testing_attempt_comment'
   get  'tests/:id/attempt/:attempt/show'                        => 'testing#show',     :as => 'testing_result_show'

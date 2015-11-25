@@ -7,28 +7,7 @@
 	<h4><p class="text-center">Результат прохождения теста</p></h4>
 	<h2><p class="text-center"><%= @test.name %></p></h2>
 
-	<% @stats.each do |stat| %>
 	  <div class="bs-callout bs-callout-info">
-		<div class="row">
-		  <div class="col-xs-8 col-sm-6">
-			<p class="h3">
-			  Попытка:
-			</p>
-		  </div>
-		  <div class="col-xs-4 col-sm-6">
-			<p class="h3"><%= stat.attempt %></p>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-xs-8 col-sm-6">
-			<p class="h3">
-			  Комментарий к попытке:
-			</p>
-		  </div>
-		  <div class="col-xs-4 col-sm-6">
-			<p class="h3"><%= stat.comment %></p>
-		  </div>
-		</div>
 		<div class="row">
 		  <div class="col-xs-8 col-sm-6">
 			<p class="h3">
@@ -36,7 +15,7 @@
 			</p>
 		  </div>
 		  <div class="col-xs-4 col-sm-6">
-			<p class="h3"><%= stat.numquestion %></p>
+			<p class="h3"><%= @stat.numquestion %></p>
 		  </div>
 		</div>
 		<div class="row">
@@ -46,7 +25,7 @@
 			</p>
 		  </div>
 		  <div class="col-xs-4 col-sm-6">
-			<p class="h3"><%= stat.numcorrectanswers %></p>
+			<p class="h3"><%= @stat.numcorrectanswers %></p>
 		  </div>
 		</div>
 		<div class="row">
@@ -56,11 +35,10 @@
 			</p>
 		  </div>
 		  <div class="col-xs-4 col-sm-6">
-			<p class="h3"><strong><%= stat.assessment %></strong></p>
+			<p class="h3"><strong><%= @stat.assessment %></strong></p>
 		  </div>
 		</div> 
 	  </div>
-	<% end %>
 
 	<%= link_to "Посмотреть подробности ответов", testing_details_path(@test), class: "btn btn-primary" %>
   </div>

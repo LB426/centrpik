@@ -113,13 +113,8 @@
 			<div class="col-md-9"><%= test.name %></div>
 			<div class="col-md-2">
 			  <% first_question = test.test_questions.all.order(:id => "asc")[0] %>
-			  <% if current_user.type == "Corporate" %>
-				<%= link_to "пройти тест", enterprise_testing_employe_select_path(@course,test),
-				:class=>"btn btn-primary btn-xs" %>
-			  <% else %>
-				<%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
-				:class=>"btn btn-primary btn-xs" %>
-			  <% end %>
+			  <%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
+			                             :class=>"btn btn-primary btn-xs" %>
 			</div>
 		  </div>
 		  <% end %>

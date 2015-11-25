@@ -23,7 +23,7 @@ class CoursesController < ApplicationController
   end
 
   def show
-    @user = params[:user_id]
+    @user = current_user
     @course = Course.find(params[:id])
 
     links = Coursetovideo.where("course_id = ?", @course)

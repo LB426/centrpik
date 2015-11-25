@@ -11,13 +11,10 @@
   <% end %>
 </section>
 <section>
-  <% if current_user.type == "Corporate" %>
-	<%= link_to "Выбрать курс", training_courses_path,
+  <%= link_to "Выбрать курс", training_courses_path,
 	                            :class => "btn btn-default btn-block" %>
-  <% else %>
-	<%= link_to "Выбрать курс", training_courses_path,
-	                            :class => "btn btn-default btn-block" %>	
-  <% end %>
+  <%= link_to "Пройденные курсы", "",
+                                :class => "btn btn-default btn-block" %>
   <% if current_user.type == "Individual" %>
 	<%= link_to "Для корпоративных клиентов",
                 new_company_path,

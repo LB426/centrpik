@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125101835) do
+ActiveRecord::Schema.define(version: 20151125190959) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -133,7 +133,7 @@ ActiveRecord::Schema.define(version: 20151125101835) do
     t.integer  "numquestion",       limit: 4
     t.integer  "numcorrectanswers", limit: 4
     t.string   "assessment",        limit: 255
-    t.string   "comment",           limit: 255
+    t.integer  "course_id",         limit: 4
   end
 
   create_table "tests", force: :cascade do |t|

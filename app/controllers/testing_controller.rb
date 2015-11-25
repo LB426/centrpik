@@ -3,6 +3,8 @@ class TestingController < ApplicationController
   before_action :logged_in_user
   
   def new
+    @user = current_user
+    @course = Course.find(params[:course_id])
     @test = Test.find(params[:test_id])
     @question = @test.test_questions.find(params[:question_id])
     @answers = @question.answers.all.order(:id => "ASC")
@@ -28,16 +30,16 @@ class TestingController < ApplicationController
   end
   
   def create
-    @user = User.find(params[:user_id])
+    @user = current_user
     @course = Course.find(params[:course_id])
     @test = Test.find(params[:test_id])
     @question = @test.test_questions.find(params[:question_id])
-    # найти последний вопрос теста
-    @last_question = @test.test_questions.all.last
     # найти первый вопрос теста
     @first_question = @test.test_questions.all.first
+    # найти последний вопрос теста
+    @last_question = @test.test_questions.all.last
+    
     # если это первый вопрос теста
-
     if @last_question.id != @question.id
       # если это не последний вопрос теста
       answers = params[:answers]
@@ -76,7 +78,7 @@ class TestingController < ApplicationController
       unless answers.nil?
         answers.each do |key,val|
           result = TestingIntermediateResult.new
-          result.user_id = current_user.id
+          result.user_id = @user.id
           result.test_id = @test.id
           result.test_question_id = @question.id
           result.answer_id = key.to_i
@@ -94,19 +96,17 @@ class TestingController < ApplicationController
                                           :attempt  => nil,
                                           :tmbegin  => nil,
                                           :tmend    => nil,
-                                          :duration => nil,
-                                          :comment  => comment )
+                                          :duration => nil )
         
         # вычисляем количество предидущих попыток
         previos_attempts = 0
-        res = TestingResult.where( user_id: current_user.id, test_id: @test.id ).last
+        res = TestingResult.where( user_id: @user.id, test_id: @test.id ).last
         unless res.nil?
           previos_attempts = res.attempt
         end
-        logger.debug "previos_attempts: #{previos_attempts}"
         res_intermediate = TestingIntermediateResult.where(
                                      "user_id=:user_id AND test_id=:test_id",
-                                     { user_id: current_user.id,
+                                     { user_id: @user.id,
                                        test_id: @test.id } ).order(:id=>"ASC" )
         counter = -1
         res_intermediate.each do |ir|
@@ -125,8 +125,6 @@ class TestingController < ApplicationController
         tmbegin = res_intermediate[0].created_at
         tmend = res_intermediate[counter].created_at
         dur = tmend - tmbegin
-        logger.debug "dur: #{tmbegin} #{tmend} #{dur}"
-
         res_intermediate.destroy_all
         stat.tmbegin = tmbegin
         stat.tmend = tmend
@@ -136,15 +134,14 @@ class TestingController < ApplicationController
         stat.save
 
         testres = TestingResult.where( "user_id=:user_id AND
-                                       test_id=:test_id AND
-                                       attempt=:attempt AND
-                                       proper=:proper",
-                                       { user_id: current_user.id,
-                                         test_id: @test.id,
-                                         attempt: stat.attempt,
-                                          proper: true }
-                                     ).count
-        logger.debug "testres: #{testres}"
+                                        test_id=:test_id AND
+                                        attempt=:attempt AND
+                                        proper=:proper",
+                                        { user_id: current_user.id,
+                                          test_id: @test.id,
+                                          attempt: stat.attempt,
+                                          proper: true }).count
+        
         stat.numcorrectanswers = testres
         numquest = stat.numquestion
         numcorrectansw = stat.numcorrectanswers
@@ -154,19 +151,18 @@ class TestingController < ApplicationController
         else
           stat.assessment = "зачёт"
         end    
-        stat.save
-                
+        stat.save        
         redirect_to testing_result_show_path(@test,stat.attempt)
       else
         flash[:info] = "Выберите вариант ответа."
-        redirect_to testing_continue_path(@test, @question)
+        redirect_to testing_continue_path(@user,@course,@test,@question)
       end
     end
   end
 
   def show
     @test = Test.find(params[:id])
-    @stats = current_user.testing_stat_attempts.all
+    @stat = current_user.testing_stat_attempts.last
   end
 
   def details
