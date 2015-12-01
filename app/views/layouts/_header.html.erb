@@ -15,18 +15,16 @@
 			  <li>
 				<%= link_to "Учётная запись", edit_user_path(current_user) %>
 			  </li>
-			  <% if current_user.type == "Corporate" %>
+			  <% if current_user.type == "Corporate" && current_user.cadmin %>
 				<li class="divider"></li>
 				<li><%= link_to "Сотрудники", employes_path %></li>
-				<% if current_user.cadmin %>
-				  <li>
-					<%= link_to "Добавить сотрудника", employe_new_path %>
-				  </li>
-				  <li>
-					<%= link_to "Компания",
-					    edit_company_path(current_user.companies.first) %>
-				  </li>
-				<% end %>
+				<li>
+				  <%= link_to "Добавить сотрудника", employe_new_path %>
+				</li>
+				<li>
+				  <%= link_to "Компания",
+				  edit_company_path(current_user.companies.first) %>
+				</li>
 			  <% end %>
 			  <% if current_user.admin? %>
 				<li class="divider"></li>

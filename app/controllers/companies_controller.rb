@@ -14,7 +14,7 @@ class CompaniesController < ApplicationController
 
   def edit
     @user = current_user
-    @company = current_user.companies.find(params[:id])
+    @company = Company.find(params[:id])
   end
 
   def create
@@ -23,9 +23,10 @@ class CompaniesController < ApplicationController
       if @company.save
         current_user.type = "Corporate"
         current_user.company_id = @company.id
+        current_user.cadmin = true
         current_user.save
         flash[:info] = "компания создана"
-        redirect_to edit_company_path(@company)
+        redirect_to employe_new_path
       else
         flash[:danger] = "ERROR: создать компанию не удалось!"
         render 'new'
@@ -37,7 +38,7 @@ class CompaniesController < ApplicationController
   end
 
   def update
-    @company = current_user.companies.find(params[:id])
+    @company = Company.find(params[:id])
     if @company.update_attributes(company_params)
       flash[:success] = "информация обновлёна"
       redirect_to edit_company_path(@company)

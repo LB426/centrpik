@@ -13,14 +13,27 @@
 <section>
   <%= link_to "Выбрать курс", training_courses_path,
 	                            :class => "btn btn-default btn-block" %>
-  <%= link_to "Пройденные курсы", "",
+  <% if current_user.testing_stat_attempts.count > 0 %>
+	<%= link_to "Пройденные курсы", stat_courses_path(current_user),
                                 :class => "btn btn-default btn-block" %>
+  <% end %>
   <% if current_user.type == "Individual" %>
 	<%= link_to "Для корпоративных клиентов",
                 new_company_path,
 	            :class => "btn btn-default btn-block" %>
   <% end %>
 </section>
+
+<% if current_user.type == "Corporate" && current_user.cadmin %>
+  <section>
+	<p class="bg-danger text-center">меню сотрудника по кадрам</p>
+	<%= link_to "Сотрудники", employes_path, :class => "btn btn-danger btn-block" %>
+	<%= link_to "Добавить сотрудника", employe_new_path,
+	                                   :class => "btn btn-danger btn-block" %>
+	<%= link_to "Компания", edit_company_path(current_user.companies.first),
+	                        :class => "btn btn-danger btn-block" %>
+  </section>
+<% end %>
 
 <% if current_user.admin? %>
   <section>
@@ -30,5 +43,6 @@
 	<%= link_to "Видео", videos_path,  :class => "btn btn-danger btn-block" %>
 	<%= link_to "Книги", books_path,   :class => "btn btn-danger btn-block" %>
 	<%= link_to "Курсы", courses_path, :class => "btn btn-danger btn-block" %>
+	<%= link_to "Компании", companies_path, :class => "btn btn-danger btn-block" %>
   </section>
 <% end %>

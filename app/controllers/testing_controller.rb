@@ -91,7 +91,8 @@ class TestingController < ApplicationController
           result.save
         end
         # делаем пустую запись в статистику
-        stat = TestingStatAttempt.create( :user_id  => current_user.id,
+        stat = TestingStatAttempt.create( :user_id  => @user.id,
+                                          :course_id => @course.id,
                                           :test_id  => @test.id,
                                           :attempt  => nil,
                                           :tmbegin  => nil,

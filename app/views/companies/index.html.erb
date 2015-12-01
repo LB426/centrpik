@@ -1,38 +1,55 @@
 <% provide(:title, "Компании") %>
 <div class="row">
-  <div class="col-md-1"><h4>Компании</h4></div>
-  <% if current_user.admin? %>
-  <div class="col-md-2 col-md-offset-9">
-	<%= link_to "Создать компанию", new_company_path,
-	                                :class => "btn btn-primary btn-block" %>
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h4>Компании</h4>
+	<table class="table">
+	  <thead>
+		<tr>
+		  <th>#</th>
+		  <th>Название компании</th>
+		  <th>
+			<%= link_to '<span class="glyphicon glyphicon-plus"
+                         aria-hidden="true"></span>'.html_safe, new_company_path,
+			             class: "btn btn-primary btn-xs",
+			             "data-toggle" => "tooltip",
+			             "data-placement" => "bottom",
+			             title: "создать компанию" %>
+		  </th>
+		  <th>&nbsp;</th>
+		  <th>&nbsp;</th>
+		</tr>
+	  </thead>
+	  <tbody>
+		<% @companies.each do |company| %>
+		  <tr>
+			<th scope="row"><%= company.id %></th>
+			<td><%= company.name %></td>
+			<td>
+			  <%= link_to '<span class="glyphicon glyphicon-pencil"
+                           aria-hidden="true"></span>'.html_safe,
+						   edit_company_path(company),
+						   :class => "btn btn-primary btn-xs" %>
+			</td>
+			<td>
+			  <%= link_to '<span class="glyphicon glyphicon-user"
+                           aria-hidden="true"></span>'.html_safe,
+						   users_search_path,
+						   :class => "btn btn-primary btn-xs" %>
+			</td>
+			<td>
+			  <%= link_to '<span class="glyphicon glyphicon-remove"
+				           aria-hidden="true"></span>'.html_safe,
+						   company_path(company),
+						   :method => :delete,
+						   :data => { confirm: "Вы уверены?" },
+						   :class => "btn btn-danger btn-xs" %>
+			</td>
+		  </tr>
+		<% end %>
+	  </tbody>
+	</table>
   </div>
-  <% end %>
 </div>
-<table class="table">
-  <thead>
-	<tr>
-	  <th>#</th>
-	  <th>Название компании</th>
-	  <th>&nbsp;</th>
-	  <th>&nbsp;</th>
-	</tr>
-  </thead>
-  <tbody>
-	<% @companies.each do |company| %>
-	  <tr>
-		<th scope="row"><%= company.id %></th>
-		<td><%= company.name %></td>
-		<td>
-		  <%= link_to "Редактировать", edit_company_path(company),
-                                       :class => "btn btn-danger btn-xs" %>
-		</td>
-		<td>
-		  <%= link_to "Удалить", company_path(company),
-                                 :method => :delete,
-		                         :data => { confirm: "Вы уверены?" },
-		                         :class => "btn btn-danger btn-xs" %>
-		</td>
-	  </tr>
-	<% end %>
-  </tbody>
-</table>

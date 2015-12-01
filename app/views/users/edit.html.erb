@@ -17,10 +17,12 @@
 	  <%= f.label :Отчество %>
 	  <%= f.text_field :otchestvo, class: 'form-control' %>
 	  
-	  <%= f.label :email %>
-	  <%= f.email_field :email, class: 'form-control' %>
+	  <% unless current_user.type == "Corporate" %>
+		<%= f.label :email %>
+		<%= f.email_field :email, class: 'form-control' %>
+	  <% end %>
 
-	  <% unless current_user.admin && @user.id != current_user.id %>
+	  <% if current_user.type != "Corporate" %>
 		<%= f.label :пароль %>
 		<%= f.password_field :password, class: 'form-control' %>
 

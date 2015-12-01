@@ -1,6 +1,6 @@
 # coding: utf-8
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :employe_new]
   before_action :correct_user,   only: [:edit, :update, :show]
   before_action :admin_user,     only: [:index, :destroy]
   
@@ -77,55 +77,107 @@ class UsersController < ApplicationController
   end
   
   def employes
-    @company = current_user.companies.first
-    @users = User.where(:company_id => @company)
+    if current_user.type == "Corporate"
+      @company = Company.find(current_user.company_id)
+      @users = User.where(:company_id => @company)
+    else
+      flash[:success] = "Вы не сотрудник компании"
+      redirect_to root_url
+    end
   end
   
   def employe_new
-    @user = Corporate.new
+    @company = Company.find(current_user.company_id)
+    if current_user.cadmin && current_user.company_id == @company.id
+      @user = Corporate.new
+    else
+      flash[:success] = "Вы не сотрудник компании"
+      redirect_to root_url
+    end
   end
 
   def employe_edit
-    @company = current_user.companies.first
-    @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
+    @company = Company.find(current_user.company_id)
+    if current_user.cadmin && current_user.company_id == @company.id
+      @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
+    else
+      flash[:success] = "Вы не сотрудник компании"
+      redirect_to root_url
+    end
   end
 
   def employe_create
-    @company = current_user.companies.first
-    up2 = user_params
-    up2["password"] = random_string
-    @user = Corporate.new(up2)
-    @user.activated = 1
-    @user.activated_at = Time.now
-    @user.company_id = current_user.companies.first.id
-    if @user.update_attributes(user_params)
-      flash[:success] = "Учётная запись корпоративного пользователя создана"
-      redirect_to employes_path
+    @company = Company.find(current_user.company_id)
+    if current_user.cadmin && current_user.company_id == @company.id
+      up2 = user_params
+      up2["password"] = random_string
+      @user = Corporate.new(up2)
+      @user.activated = 1
+      @user.activated_at = Time.now
+      @user.company_id = current_user.companies.first.id
+      if @user.update_attributes(user_params)
+        flash[:success] = "Учётная запись корпоративного пользователя создана"
+        redirect_to employes_path
+      else
+        flash[:info] = "Ошибка. Учётная запись корпоративного пользователя НЕ создана"
+        render 'new_employe_user'
+      end
     else
-      flash[:info] = "Ошибка. Учётная запись корпоративного пользователя НЕ создана"
-      render 'new_employe_user'
+      flash[:success] = "Вы не сотрудник компании"
+      redirect_to root_url
     end
   end
 
   def employe_update
-    @company = current_user.companies.first
-    @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
-    if @user.update_attributes(user_params)
-      flash[:success] = "Учётная запись корпоративного пользователя изменена"
-      redirect_to employes_path
+    @company = Company.find(current_user.company_id)
+    if current_user.cadmin && current_user.company_id == @company.id
+      @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
+      if @user.update_attributes(user_params)
+        flash[:success] = "Учётная запись корпоративного пользователя изменена"
+        redirect_to employes_path
+      else
+        render 'employe_edit'
+      end
     else
-      render 'employe_edit'
+      flash[:success] = "Вы не сотрудник компании"
+      redirect_to root_url
     end
   end
 
   def employe_destroy
-    @company = current_user.companies.first
-    @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
-    @user.destroy
-    flash[:success] = "Корпоративный пользователь удалён"
-    redirect_to employes_path
+    @company = Company.find(current_user.company_id)
+    if current_user.cadmin && current_user.company_id == @company.id
+      @user = User.where("id = ? AND company_id = ?", params[:id], @company.id ).first
+      @user.destroy
+      flash[:success] = "Корпоративный пользователь удалён"
+      redirect_to employes_path
+    else
+      flash[:success] = "Вы не сотрудник компании"
+      redirect_to root_url
+    end
   end
 
+  def search
+  end
+
+  def searchexec
+    @users = nil
+    unless params[:family].empty?
+      @users = User.where("family like '%#{params[:family]}%'").paginate(page: params[:page])
+    end
+    unless params[:company].empty?
+      @companies = Company.where("name like '%#{params[:company]}%'")
+      arr = Array.new
+      @companies.each do |c|
+        arr << c.id
+      end
+      @users = User.where(company_id: arr).paginate(page: params[:page])
+    end
+    unless params[:email].empty? || params[:email] == "@"
+      @users = User.where("email like '%#{params[:email]}%'").paginate(page: params[:page])
+    end
+  end
+  
 private
 
   def user_params

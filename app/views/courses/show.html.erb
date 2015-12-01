@@ -70,7 +70,9 @@
 			  <img src="http://www.indiaparenting.com/tpl/images/ipapp/Stories%20&%20Legends.png" alt="..." width="64" height="64">
 			  <div class="caption">
 				<h3>Лекция</h3>
-				<p><%= book.name %></p>
+				<p>
+				  <%= book.name.sub(/\.(.*)$/,"").gsub(/_/," ") %>
+				</p>
 				<p>
 				  <%= link_to "Скачать", book.file.url,
 				              class: "btn btn-primary",

@@ -1,13 +1,14 @@
 class User < ActiveRecord::Base
   has_many :microposts, dependent: :destroy
   has_many :tests, dependent: :destroy
-  has_many :testing_intermediate_results
-  has_many :testing_results
-  has_many :testing_stat_attempts
+  has_many :testing_intermediate_results, dependent: :destroy
+  has_many :testing_results, dependent: :destroy
+  has_many :testing_stat_attempts, dependent: :destroy
   has_many :companies
   
   attr_accessor :remember_token, :activation_token, :reset_token
   before_create :create_activation_digest
+  after_destroy :cleanup
   
   validates :name,   presence: true, length: { maximum: 50 }
   validates :family, presence: true, length: { maximum: 50 }
@@ -91,4 +92,14 @@ class User < ActiveRecord::Base
     self.activation_digest = User.digest(activation_token)
   end
 
+  def cleanup
+    if self.cadmin
+      usrs = User.where(company_id: self.company_id)
+      usrs.each do |u|
+        u.destroy
+      end
+      Company.find(self.company_id).destroy
+    end
+  end
+  
 end

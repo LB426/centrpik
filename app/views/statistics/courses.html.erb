@@ -4,26 +4,33 @@
 	</aside>
 	<div class="col-md-9">
 	  <h1>Результат прохождения курсов</h1>
-	  <p>
-		пользователь: <%= @user.family %> 
-		<%= @user.name %> 
-		<%= @user.otchestvo %>
-	  </p>
-	  <p>
-		результат прохождения тестов:<br>
 		<table class="table">
 		  <thead>
 			<tr>
-			  <th>Название теста</th>
-			  <th>комментарий</th>
+			  <% if current_user.admin %>
+				<th>Ф.И.О.</th>
+			  <% end %>
+			  <th>курс</th>
+			  <th>тест</th>
+			  <th>&nbsp;</th>
 			  <th>оценка</th>
 			</tr>
 		  </thead>
 		  <tbody>
 			<% @attempts.each do |attempt| %>
 			  <tr>
+				<% if current_user.admin %>
+				  <td>
+					<%= @user.family %>
+					<%= @user.name %>
+					<%= @user.otchestvo %>
+				  </td>
+				<% end %>
+				<td>
+				  <%= Course.find(attempt.course_id).name %>
+				</td>
 				<td><%= Test.find(attempt.test_id).name %></td>
-				<td><%= link_to attempt.comment,
+				<td><%= link_to "результат",
 			        stat_course_path( attempt.user_id,
 					  attempt.test_id,
 					  attempt.id) %>
@@ -33,6 +40,5 @@
 			<% end %>
 		  </tbody>
 		</table>
-	  </p>
 	</div>
 </div>

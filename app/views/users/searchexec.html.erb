@@ -4,6 +4,7 @@
 	<%= render "users/left_menu" %>
   </aside>
   <div class="col-md-9">
+	<% unless @users.nil? %>
 	<table class="table table-hover">
 	  <thead>
 		<tr>
@@ -56,8 +57,12 @@
 			</td>
 		  </tr>
 		<% end %>
+
 	  </tbody>
 	</table>
-	<%= will_paginate %>	
+	<%= will_paginate %>
+	<% else %>
+	   <h2>ничего не найдено</h2>
+	<% end %>
   </div>
 </div>

@@ -7,7 +7,7 @@ class AccountActivationsController < ApplicationController
       user.activate
       log_in user
       flash[:success] = "Учётная запись активирована!"
-      redirect_to edit_user_path(user)
+      redirect_to root_path
     else
       flash[:danger] = "Активация не удалась. Возможно линк активации устарел."
       redirect_to root_url

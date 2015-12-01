@@ -12,7 +12,9 @@ Rails.application.routes.draw do
   delete  'logout'     => 'sessions#destroy'
   post    'changeuser/:user_id' => 'sessions#changeuser', :as => 'session_changeuser'
   # users
-  get     'signup' => 'users#new'
+  get         'signup' => 'users#new'
+  get   'users/search' => 'users#search', :as => 'users_search'
+  post  'users/search' => 'users#searchexec', :as => 'users_searchexec'
   resources :users
   resources :corporates,  controller: 'users', type: 'Corporate'
   resources :individuals, controller: 'users', type: 'Individual'

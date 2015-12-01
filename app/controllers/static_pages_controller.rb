@@ -17,6 +17,7 @@ class StaticPagesController < ApplicationController
   end
 
   def library
+    @books = Book.all
   end
 
   def dlearning

@@ -1,0 +1,28 @@
+<% provide(:title, 'Поиск пользователя') %>
+<div class="row">
+  <aside class="col-md-3">
+	<%= render "users/left_menu" %>
+  </aside>
+  <div class="col-md-9">
+	<h3>
+	  <p class="text-center">
+		Поиск пользователя
+		<small>заполнить только одно из полей</small>
+	  </p>
+	</h3>
+	
+    <%= form_tag(users_searchexec_path) do -%>
+
+	  <%= label_tag :Фамилия %>
+      <%= text_field_tag :family, nil, class: 'form-control' %>
+	  
+      <%= label_tag :адрес_email %>
+      <%= text_field_tag :email, nil, class: 'form-control' %>
+
+	  <%= label_tag :Компания %>
+	  <%= text_field_tag :company, nil, class: 'form-control' %>
+	  
+      <%= submit_tag "Найти учётную запись", class: "btn btn-primary" %>
+    <% end -%>
+  </div>
+</div>
