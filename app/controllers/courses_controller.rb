@@ -36,7 +36,11 @@ class CoursesController < ApplicationController
     links = Coursetobook.where("course_id = ?", @course)
     book_id_arr = Array.new
     links.each do |link|
-      book_id_arr << link.book_id
+      book = Book.where(id: link.book_id)
+      if book.size == 1
+        book_id_arr << link.book_id
+      elsif book.size == 0
+      end
     end
     @books = Book.find(book_id_arr)
 

@@ -55,11 +55,15 @@ class EdumaterialsController < ApplicationController
     if mtype == "Video"
       # делаем для видео
       @video = Video.find(params[:id])
+      link = Coursetovideo.where("video_id = ?", @video.id)
+      link.destroy
       @video.destroy
       flash[:success] = "Видео удалено."
       redirect_to videos_path
     elsif mtype == "Book"
       @book = Book.find(params[:id])
+      link = Coursetobook.where("book_id = ?", @book.id)
+      link.destroy
       @book.destroy
       flash[:success] = "Книга удалена."
       redirect_to books_path
