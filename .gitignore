@@ -20,3 +20,5 @@ public/assets
 config/unicorn.rb
 public/library
 public/videos
+
+app/views/layouts/_yandex_metrika_counter.html.erb
