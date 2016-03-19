@@ -13,6 +13,12 @@
   </p>
 </div>
 
+<% if @question.picture.exists? %>
+  <div class="jumbotron">
+    <img src="<%= @question.picture.url(:medium) %>" class="img-rounded center-block" alt="Responsive image">
+  </div>
+<% end %>
+
 <%= form_tag(testing_result_create_path(@user,@course,@test,@question)) do -%>
   <div class="bg-danger bs-callout bs-callout-danger">
 	<div class="pull-right"><p class="text-muted">ВАРИАНТЫ ОТВЕТОВ</p></div>

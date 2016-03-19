@@ -103,7 +103,7 @@
 			</button>
 		  </div>
 		  <div class="col-md-12">
-			<%= form_tag(test_questions_update_path(@test,question), method: "patch") do -%>
+			<%= form_tag(test_questions_update_path(@test,question), multipart: true ) do -%>
 			  <div class="form-group">
 				<label>вопрос</label>
 				<%= text_area_tag('question', question.question,
@@ -152,6 +152,25 @@
 				  </div>
 				<% end %>
 			  </div>
+
+			  <div class="form-group bs-callout bs-callout-warning">
+				<div class="row">
+				  Загрузить картинку:
+          <input type="file" name="picture" />
+          <% if question.picture.exists? %>
+            <%= image_tag question.picture.url(:thumb) %>
+            <div class="row">
+            <div class="col-xs-10">
+            <div class="myborder">
+            <code>Очистить картинку</code>
+            <input type="checkbox" name="clearpic">
+            </div>
+            </div>
+            </div>
+          <% end %>
+				</div>
+			  </div>
+
 			  <div class="row">
 				<div class="col-md-2">
 				  <button class="btn btn-success"
@@ -165,12 +184,11 @@
 				</div>
 				<div class="col-md-2 col-md-offset-4">
 				  <%= link_to "Удалить вопрос", test_question_destroy_path(@test, question),
-			      :method => :delete,
+				  :method => :delete,
 				  :data => { confirm: "Вы уверены?" },
-			      :class => "btn btn-danger" %>
+				  :class => "btn btn-danger" %>
 				</div>
 			  </div>
-
 			<% end -%>
 		  </div>
 		</div>

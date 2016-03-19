@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125190959) do
+ActiveRecord::Schema.define(version: 20160319120453) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -87,10 +87,14 @@ ActiveRecord::Schema.define(version: 20151125190959) do
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id", using: :btree
 
   create_table "test_questions", force: :cascade do |t|
-    t.integer  "test_id",    limit: 4
-    t.text     "question",   limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "test_id",              limit: 4
+    t.text     "question",             limit: 65535
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.string   "picture_file_name",    limit: 255
+    t.string   "picture_content_type", limit: 255
+    t.integer  "picture_file_size",    limit: 4
+    t.datetime "picture_updated_at"
   end
 
   create_table "testing_intermediate_results", force: :cascade do |t|

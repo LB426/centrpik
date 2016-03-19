@@ -7,6 +7,7 @@ class TestQuestionsController < ApplicationController
   def create
     @test = Test.find(params[:id])
     testquestion = @test.test_questions.new(question: params[:question])
+    testquestion.picture = params[:picture] unless params[:picture].nil?
     testquestion.save
     
     answers = params[:answers]
@@ -27,6 +28,11 @@ class TestQuestionsController < ApplicationController
     @test = Test.find(params[:test_id])
     @question = TestQuestion.find(params[:question_id])
     @question[:question] = params[:question]
+    unless params[:clearpic].nil?
+      @question.picture = nil
+    else
+      @question.picture = params[:picture] unless params[:picture].nil?
+    end
     @question.save
     answers = params[:answers]
     answers.each do |key,val|

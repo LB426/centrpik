@@ -111,14 +111,15 @@
 	  <div class="panel-body">
 		  <% @tests.each do |test| %>
 		  <div class="row">
-			<div class="col-md-1"><%= test.id %></div>
-			<div class="col-md-9"><%= test.name %></div>
-			<div class="col-md-2">
-			  <% first_question = test.test_questions.all.order(:id => "asc")[0] %>
-			  <%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
-			                             :class=>"btn btn-primary btn-xs" %>
-			</div>
+        <div class="col-md-1"><%= test.id %></div>
+        <div class="col-md-9"><%= test.name %></div>
+        <div class="col-md-2">
+          <% first_question = test.test_questions.all.order(:id => "asc")[0] %>
+          <%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
+                                     :class=>"btn btn-primary btn-xs" %>
+        </div>
 		  </div>
+      <br>
 		  <% end %>
 	  </div>
 	  <div class="panel-footer">тесты</div>

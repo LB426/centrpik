@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   get    'tests/:id/question/new' => 'test_questions#new',    :as => 'test_questions_new'
   post   'tests/:id/questions'    => 'test_questions#create', :as => 'test_questions_create'
   delete 'tests/:test_id/question/:question_id' => 'test_questions#destroy', :as => 'test_question_destroy'
-  patch  'tests/:test_id/question/:question_id' => 'test_questions#update',  :as => 'test_questions_update'
+  post   'tests/:test_id/question/:question_id' => 'test_questions#update',  :as => 'test_questions_update'
   delete 'tests/:test_id/answer/:answer_id' => 'test_questions#answer_destroy',:as => 'test_questions_answer_destroy'
   # тестирование
   get  'testing/user/:user_id/course/:course_id/test/:test_id/question/:question_id/new'      => 'testing#new',      :as => 'testing_new'

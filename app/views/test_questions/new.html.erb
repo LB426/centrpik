@@ -42,17 +42,24 @@
 		  </div>
 		</div>
 	  </div>
-	  
+
+    <div class="form-group bs-callout bs-callout-warning">	  
+      <div class="row">
+        Загрузить картинку:
+        <input type="file" name="picture" />
+      </div>
+    </div>
+
 	  <div class="row">
-		<div class="col-xs-2">
-		  <button class="btn btn-success" name="AddAnswerToNewTestQuestionBtn">
-			Добавить ответ
-		  </button>
-		</div>
-		
-		<div class="col-xs-3 col-md-offset-7">
-		  <%= submit_tag "Сохранить вопрос", class: "btn btn-primary" %>
-		</div>
+      <div class="col-xs-2">
+        <button class="btn btn-success" name="AddAnswerToNewTestQuestionBtn">
+        Добавить ответ
+        </button>
+      </div>
+      
+      <div class="col-xs-3 col-md-offset-7">
+        <%= submit_tag "Сохранить вопрос", class: "btn btn-primary" %>
+      </div>
 	  </div>
 	<% end -%>
 
