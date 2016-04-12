@@ -115,8 +115,12 @@
         <div class="col-md-9"><%= test.name %></div>
         <div class="col-md-2">
           <% first_question = test.test_questions.all.order(:id => "asc")[0] %>
-          <%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
+          <% unless first_question.nil? %>
+              <%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
                                      :class=>"btn btn-primary btn-xs" %>
+          <% else %>
+              <%= link_to "нет вопросов к тесту", test_questions_new_path(test) %>
+          <% end %>
         </div>
 		  </div>
       <br>
