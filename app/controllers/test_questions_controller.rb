@@ -37,22 +37,24 @@ class TestQuestionsController < ApplicationController
     end
     @question.save
     answers = params[:answers]
-    answers.each do |key,val|
-      id = key.to_i
-      text = val["text"]
-      right = false
-      right = true if val["right"] == "YES"
-      if id >= 0
-        answer = Answer.find(id)
-        answer[:ans_text] = text
-        answer[:proper] = right
-        answer.save
-      else
-        answer = @question.answers.new( ans_text: text,
-                                          proper: right )
-        answer.save
-      end
-    end 
+    unless answers.nil?
+      answers.each do |key,val|
+        id = key.to_i
+        text = val["text"]
+        right = false
+        right = true if val["right"] == "YES"
+        if id >= 0
+          answer = Answer.find(id)
+          answer[:ans_text] = text
+          answer[:proper] = right
+          answer.save
+        else
+          answer = @question.answers.new( ans_text: text,
+                                            proper: right )
+          answer.save
+        end
+      end 
+    end
     redirect_to test_edit_path(@test)
   end
 

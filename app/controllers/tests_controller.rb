@@ -39,6 +39,12 @@ class TestsController < ApplicationController
   
   def destroy
     @test = Test.find(params[:id])
+    course_to_test_links = Coursetotest.where("test_id=:test_id", {test_id: @test.id})
+    if course_to_test_links.size > 0
+      course_to_test_links.each do |link|
+        link.destroy
+      end
+    end
     @test.destroy
     flash[:success] = "Тест удалён"
     redirect_to tests_path
