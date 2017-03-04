@@ -95,38 +95,66 @@
   <aside class="col-md-3">
   </aside>
   <div class="col-md-9">
-	<div class="panel panel-default">
-	  <div class="panel-heading">
-		<div class="media">
-		  <div class="media-left media-top">
-			<img class="media-object" src="/test-icon-20914.png" width="64" height="64">
-		  </div>
-		  <div class="media-body">
-			<p class="text-center">
-			  <strong><h3 class="media-heading">Контрольные тесты</h3></strong>
-			</p>
-		  </div>
-		</div>
-	  </div>
-	  <div class="panel-body">
-		  <% @tests.each do |test| %>
-		  <div class="row">
-        <div class="col-md-1"><%= test.id %></div>
-        <div class="col-md-9"><%= test.name %></div>
-        <div class="col-md-2">
-          <% first_question = test.test_questions.all.order(:id => "asc")[0] %>
-          <% unless first_question.nil? %>
-              <%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
-                                     :class=>"btn btn-primary btn-xs" %>
-          <% else %>
-              <%= link_to "нет вопросов к тесту", test_questions_new_path(test) %>
-          <% end %>
+  <% if @user.allow_testing %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      <div class="media">
+        <div class="media-left media-top">
+        <img class="media-object" src="/test-icon-20914.png" width="64" height="64">
         </div>
-		  </div>
-      <br>
-		  <% end %>
-	  </div>
-	  <div class="panel-footer">тесты</div>
-	</div>
-  </div>
+        <div class="media-body">
+        <p class="text-center">
+          <strong><h3 class="media-heading">Контрольные тесты</h3></strong>
+        </p>
+        </div>
+      </div>
+      </div>
+      <div class="panel-body">
+        <% @tests.each do |test| %>
+        <div class="row">
+          <div class="col-md-1"><%= test.id %></div>
+          <div class="col-md-9"><%= test.name %></div>
+          <div class="col-md-2">
+            <% first_question = test.test_questions.all.order(:id => "asc")[0] %>
+            <% unless first_question.nil? %>
+              <%= link_to "пройти тест", testing_new_path(@user,@course,test,first_question),
+                                       :class=>"btn btn-primary btn-xs" %>
+            <% else %>
+                <%= link_to "нет вопросов к тесту", test_questions_new_path(test) %>
+            <% end %>
+          </div>
+        </div>
+        <br>
+        <% end %>
+      </div>
+      <div class="panel-footer">тесты</div>
+    </div>
+    </div>
+  <% else %>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+      <div class="media">
+        <div class="media-left media-top">
+        <img class="media-object" src="/test-icon-20914.png" width="64" height="64">
+        </div>
+        <div class="media-body">
+        <p class="text-center">
+          <strong><h3 class="media-heading">Вам необходимо запросить прохождение тестирования</h3></strong>
+        </p>
+        </div>
+      </div>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <%= form_for(@user, as: :user, url: users_request_testing_create_path(@user,@course), method: :post) do |f| %>
+              <%= f.submit "отправить запрос на прохождение тестирования", class: "btn btn-success" %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">запрос на прохождение тестов</div>
+    </div>
+    </div>
+  <% end %>
 </div>

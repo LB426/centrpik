@@ -1,8 +1,8 @@
 # coding: utf-8
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :employe_new]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :employe_new, :request_testing]
   before_action :correct_user,   only: [:edit, :update, :show]
-  before_action :admin_user,     only: [:index, :destroy]
+  before_action :admin_user,     only: [:index, :destroy, :allow_testing, :request_testing_show]
   
   def index
     @users = User.paginate(page: params[:page])
@@ -176,6 +176,38 @@ class UsersController < ApplicationController
     unless params[:email].empty? || params[:email] == "@"
       @users = User.where("email like '%#{params[:email]}%'").paginate(page: params[:page])
     end
+  end
+
+  def allow_testing
+    @user = User.find(params[:id])
+    @user.allow_testing = params[:user][:allow_testing]
+    if @user.save
+      if @user.allow_testing
+        flash[:success] = "Разрешено прохождение тестирования"
+      else
+        flash[:success] = "Запрещено прохождение тестирования"
+      end
+      render 'edit'
+    else
+      flash[:success] = "Не удалось разрешить прохождение тестирования"
+      render 'edit'
+    end
+  end
+
+  def request_testing
+    @user = User.find(params[:id])
+    @user.request_testing = true
+    if @user.save
+      flash[:success] = "Запрос на прохождение тестирования отправлен"
+      redirect_to course_path(params[:course_id])
+    else
+      flash[:success] = "Не удалось отправить запрос на прохождение тестирования"
+      redirect_to root_url
+    end
+  end
+
+  def request_testing_show
+    @users = User.where("allow_testing = 0 AND request_testing = 1").paginate(page: params[:page])
   end
   
 private

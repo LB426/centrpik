@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160319120453) do
+ActiveRecord::Schema.define(version: 20170304153659) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "test_question_id", limit: 4
@@ -166,6 +166,8 @@ ActiveRecord::Schema.define(version: 20160319120453) do
     t.string   "type",              limit: 255
     t.integer  "company_id",        limit: 4
     t.boolean  "cadmin"
+    t.boolean  "allow_testing",                 default: false
+    t.boolean  "request_testing",               default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -32,11 +32,25 @@
 	  
 	  <%= f.submit "Сохранить изменения", class: "btn btn-primary" %>
 	<% end %>
-
+<!--
 	<div class="gravatar_edit">
 	  <%= gravatar_for @user %>
 	  <a href="http://gravatar.com/emails" target="_blank">Изменить изображение</a>
 	</div>
+-->
+  <br>
+  <% if current_user.admin %>
+	<%= form_for(@user, as: :user, url: users_allow_testing_path, method: :post) do |f| %>
+    <% if @user.allow_testing %>
+      <%= f.hidden_field :allow_testing, :value => false %>
+      <%= f.submit "Запретить прохождение тестов", class: "btn btn-warning" %>
+    <% else %>
+      <%= f.hidden_field :allow_testing, :value => true %>
+      <%= f.submit "Разрешить прохождение тестов", class: "btn btn-success" %>
+    <% end %>
+	<% end %>
+	<% end %>
+  
   </div>
 </div>
 

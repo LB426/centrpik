@@ -5,9 +5,15 @@
 	<%= current_user.otchestvo %>
 	<%= current_user.family %>
   </h1>
+  <% if current_user.allow_testing %>
+    тестирование разрешено
+  <% else %>
+    тестирование запрещено
+  <% end %>
   <% if current_user.type == "Corporate" %>
-	<% company = Company.find(current_user.company_id) %>
-	<strong>&laquo;<%= company.name %>&raquo;</strong>
+    <% company = Company.find(current_user.company_id) %>
+    <br>
+    <strong>&laquo;<%= company.name %>&raquo;</strong>
   <% end %>
 </section>
 <section>
@@ -44,5 +50,6 @@
 	<%= link_to "Книги", books_path,   :class => "btn btn-danger btn-block" %>
 	<%= link_to "Курсы", courses_path, :class => "btn btn-danger btn-block" %>
 	<%= link_to "Компании", companies_path, :class => "btn btn-danger btn-block" %>
+	<%= link_to "Запросы на тестирование", users_request_testing_path, :class => "btn btn-danger btn-block" %>
   </section>
 <% end %>
