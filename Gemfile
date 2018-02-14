@@ -31,7 +31,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'faker'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
-gem "paperclip", "~> 4.3"
+gem "paperclip", "~> 5.2.1"
 #gem 'vkontakte_api', '~> 1.4'
 
 # Use Unicorn as the app server
