@@ -16,7 +16,7 @@ default: &default
   username: <%= ENV['CENTRPIC_DATABASE_USERNAME'] %>
   password: <%= ENV['CENTRPIC_DATABASE_PASSWORD'] %>
   socket: /var/run/mysqld/mysqld.sock
-  database: centrpic
+  database: centrpikdb
 
 development:
   <<: *default
